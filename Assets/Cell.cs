@@ -31,7 +31,7 @@ public class Cell : MonoBehaviour
             Debug.Log("game over");
         } else
         {
-            square.color = Color.gray;
+            square.color = Color.white;
             transform.GetChild(2).gameObject.SetActive(true);
         }
     }

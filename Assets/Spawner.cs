@@ -51,6 +51,28 @@ public class Spawner : MonoBehaviour
                         int count = text.GetComponent<TextMeshPro>().text == "" ? 1 : int.Parse(text.GetComponent<TextMeshPro>().text) + 1;
                         text.GetComponent<TextMeshPro>().text = count.ToString();
                         //Changer couleur en fonction du chiffre
+
+                        switch (count)
+                        {
+                            case 1:
+                                text.GetComponent<TextMeshPro>().color = Color.cyan;
+                                break;
+                            case 2:
+                                text.GetComponent<TextMeshPro>().color = Color.green;
+                                break;
+                            case 3:
+                                text.GetComponent<TextMeshPro>().color = Color.red;
+                                break;
+                            case 4:
+                                text.GetComponent<TextMeshPro>().color = Color.blue;
+                                break;
+                            case 5:
+                                text.GetComponent<TextMeshPro>().color = Color.magenta;
+                                break;
+                            case 6:
+                                text.GetComponent<TextMeshPro>().color = Color.yellow;
+                                break;
+                        }
                     }
                 }
 
