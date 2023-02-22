@@ -8,6 +8,7 @@ using Color = UnityEngine.Color;
 
 public class Cell : MonoBehaviour
 {
+    [SerializeField] bool isRevealed = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +23,42 @@ public class Cell : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        if (!isRevealed)
+        {
+            isRevealed = true;
+            SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
 
-        if (transform.childCount == 4)
+            if (transform.childCount == 5)
+            {
+                square.color = Color.red;
+                transform.GetChild(4).gameObject.SetActive(true);
+                Debug.Log("game over");
+            }
+            else
+            {
+                square.color = Color.white;
+                transform.GetChild(2).gameObject.SetActive(true);
+            }
+
+            if (transform.GetChild(3).gameObject.activeSelf)
+            {
+                transform.GetChild(3).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1) && !isRevealed)
         {
-            square.color = Color.red;
-            transform.GetChild(3).gameObject.SetActive(true);
-            Debug.Log("game over");
-        } else
-        {
-            square.color = Color.white;
-            transform.GetChild(2).gameObject.SetActive(true);
+            Debug.Log("flag");
+            if (transform.GetChild(3).gameObject.activeSelf)
+            {
+                transform.GetChild(3).gameObject.SetActive(false);
+            } else
+            {
+                transform.GetChild(3).gameObject.SetActive(true);
+            }
         }
     }
 }

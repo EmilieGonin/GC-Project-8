@@ -55,19 +55,19 @@ public class Spawner : MonoBehaviour
                         switch (count)
                         {
                             case 1:
-                                text.GetComponent<TextMeshPro>().color = Color.cyan;
+                                text.GetComponent<TextMeshPro>().color = new Color32(18,59, 255,255);
                                 break;
                             case 2:
-                                text.GetComponent<TextMeshPro>().color = Color.green;
+                                text.GetComponent<TextMeshPro>().color = new Color32(1,154,30,255);
                                 break;
                             case 3:
                                 text.GetComponent<TextMeshPro>().color = Color.red;
                                 break;
                             case 4:
-                                text.GetComponent<TextMeshPro>().color = Color.blue;
+                                text.GetComponent<TextMeshPro>().color = new Color32(1,4,154,255);
                                 break;
                             case 5:
-                                text.GetComponent<TextMeshPro>().color = Color.magenta;
+                                text.GetComponent<TextMeshPro>().color = new Color(109,11,11,255);
                                 break;
                             case 6:
                                 text.GetComponent<TextMeshPro>().color = Color.yellow;
