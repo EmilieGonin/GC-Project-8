@@ -9,6 +9,7 @@ using Color = UnityEngine.Color;
 public class Cell : MonoBehaviour
 {
     [SerializeField] bool isRevealed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,13 @@ public class Cell : MonoBehaviour
 
     private void OnMouseDown()
     {
+        GameObject spawner = GameObject.Find("Spawner");
+        if (!spawner.GetComponent<Spawner>().HasStarted())
+        {
+            Debug.Log("init");
+            spawner.GetComponent<Spawner>().Init(gameObject);
+        }
+        
         if (!isRevealed)
         {
             isRevealed = true;
