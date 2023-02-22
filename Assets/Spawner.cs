@@ -27,7 +27,6 @@ public class Spawner : MonoBehaviour
             {
                 addBomb();
             }
-            //Vérifier s'il existe déjà une bombe
         }
 
         //Cells
@@ -72,15 +71,18 @@ public class Spawner : MonoBehaviour
         int y = random.Next(min, max);
         GameObject newBomb = Instantiate(bomb, new Vector2(x, y), Quaternion.identity);
 
+        //On vérifie si l'emplacement choisis n'est pas déjà pris par une bombe
         foreach (var bombItem in bombs)
         {
             if (bombItem.transform.position == newBomb.transform.position)
             {
+                Destroy(newBomb);
                 return false;
             }
         }
 
         bombs.Add(newBomb);
+        newBomb.SetActive(false);
         return true;
     }
 

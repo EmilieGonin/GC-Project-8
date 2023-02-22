@@ -27,6 +27,7 @@ public class Cell : MonoBehaviour
         if (transform.childCount == 4)
         {
             square.color = Color.red;
+            transform.GetChild(3).gameObject.SetActive(true);
             Debug.Log("game over");
         } else
         {
