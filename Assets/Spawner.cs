@@ -93,7 +93,7 @@ public class Spawner : MonoBehaviour
         int y = random.Next(min, max);
         GameObject newBomb = Instantiate(bomb, new Vector2(x, y), Quaternion.identity);
 
-        //On vérifie si l'emplacement choisis n'est pas déjà pris par une bombe
+        //On vï¿½rifie si l'emplacement choisis n'est pas dï¿½jï¿½ pris par une bombe
         foreach (var bombItem in bombs)
         {
             if (bombItem.transform.position == newBomb.transform.position)
@@ -110,20 +110,22 @@ public class Spawner : MonoBehaviour
 
     bool isAdjacent(Vector2 bombPos, Vector2 cellPos)
     {
-        if (bombPos == cellPos + new Vector2(1, 1) ||
-            bombPos == cellPos + new Vector2(1, 0) ||
-            bombPos == cellPos + new Vector2(0, 1) ||
-            bombPos == cellPos + new Vector2(-1, -1) ||
-            bombPos == cellPos + new Vector2(-1, 0) ||
-            bombPos == cellPos + new Vector2(0, -1) ||
-            bombPos == cellPos + new Vector2(-1, 1) ||
-            bombPos == cellPos + new Vector2(1, -1))
+        for (var i = -1; i <= 1; i++)
         {
-            return true;
+            for (var j = -1; j <= 1; j++)
+            {
+                Debug.Log("i = " + i + "\n");
+                Debug.Log("j = " + j + "\n");
+                if (bombPos == cellPos + new Vector2(i, j))
+                {
+                    return true;
+                }
+                else
+                {
+                    
+                }
+            }
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 }
