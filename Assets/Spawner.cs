@@ -36,10 +36,7 @@ public class Spawner : MonoBehaviour
 
     public void Init(GameObject clickedCell)
     {
-        if (!started)
-        {
-            started = true;
-        }
+        started = true;
 
         //Bombs
         for (int i = 0; i < 10; i++)
