@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] GameObject cell;
     [SerializeField] GameObject bomb;
+    [SerializeField] int max = 10;
+    [SerializeField] int min = -9;
+    [SerializeField] int bombsNumber = 50;
     List<GameObject> bombs = new List<GameObject>();
     GameObject[,] cells;
     System.Random random = new System.Random();
-    int max = 5;
-    int min = -4;
     bool started = false;
 
     // Start is called before the first frame update
@@ -27,7 +28,7 @@ public class Spawner : MonoBehaviour
             for (int j = min; j < max; j++)
             {
                 GameObject newCell = Instantiate(cell, new Vector2(j, i), Quaternion.identity);
-                cells[j + 4, i + 4] = newCell;
+                cells[j - min, i - min] = newCell;
                 GameObject text = newCell.transform.GetChild(2).gameObject;
                 text.SetActive(false);
             }
@@ -39,7 +40,7 @@ public class Spawner : MonoBehaviour
         started = true;
 
         //Bombs
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < bombsNumber; i++)
         {
             if (!AddBomb(clickedCell))
             {
@@ -52,7 +53,7 @@ public class Spawner : MonoBehaviour
         {
             for (int j = min; j < max; j++)
             {
-                GameObject currentCell = cells[j + 4, i + 4];
+                GameObject currentCell = cells[j - min, i - min];
 
                 GameObject text = currentCell.transform.GetChild(2).gameObject;
 
