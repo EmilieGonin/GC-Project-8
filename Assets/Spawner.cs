@@ -23,12 +23,10 @@ public class Spawner : MonoBehaviour
         //Bombs
         for (int i = 0; i < 10; i++)
         {
-            int x = random.Next(min, max);
-            Debug.Log(x);
-            int y = random.Next(min, max);
-            Debug.Log(y);
-            GameObject newBomb = Instantiate(bomb, new Vector2(x, y), Quaternion.identity);
-            bombs.Add(newBomb);
+            if (!addBomb())
+            {
+                addBomb();
+            }
             //Vérifier s'il existe déjà une bombe
         }
 
@@ -66,6 +64,24 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         
+    }
+
+    bool addBomb()
+    {
+        int x = random.Next(min, max);
+        int y = random.Next(min, max);
+        GameObject newBomb = Instantiate(bomb, new Vector2(x, y), Quaternion.identity);
+
+        foreach (var bombItem in bombs)
+        {
+            if (bombItem.transform.position == newBomb.transform.position)
+            {
+                return false;
+            }
+        }
+
+        bombs.Add(newBomb);
+        return true;
     }
 
     bool isAdjacent(Vector2 bombPos, Vector2 cellPos)
