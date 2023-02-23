@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] int max = 10;
     [SerializeField] int min = -9;
     [SerializeField] int bombsNumber = 50;
+    public Camera camera;
     List<GameObject> bombs = new List<GameObject>();
     GameObject[,] cells;
     System.Random random = new System.Random();
@@ -110,17 +111,20 @@ public class Spawner : MonoBehaviour
             case 1:
                 max = 5;
                 min = -4;
-                bombsNumber = 10;
+                bombsNumber = 20;
+                camera.orthographicSize = 5;
                 break;
             case 2:
                 max = 10;
                 min = -9;
                 bombsNumber = 50;
+                camera.orthographicSize = 10;
                 break;
             case 3:
                 max = 15;
                 min = -14;
-                bombsNumber = 80;
+                bombsNumber = 150;
+                camera.orthographicSize = 15;
                 break;
         }
     }
