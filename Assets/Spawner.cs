@@ -34,6 +34,9 @@ public class Spawner : MonoBehaviour
                 text.SetActive(false);
             }
         }
+
+        GameObject bombsNumberText = GameObject.Find("BombsNumber");
+        bombsNumberText.GetComponent<TextMeshPro>().text = bombsNumber.ToString();
     }
 
     public void Init(GameObject clickedCell)
