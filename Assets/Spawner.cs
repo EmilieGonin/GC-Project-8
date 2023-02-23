@@ -103,6 +103,28 @@ public class Spawner : MonoBehaviour
         
     }
 
+    void SetDifficulty(int difficulty)
+    {
+        switch (difficulty)
+        {
+            case 1:
+                max = 5;
+                min = -4;
+                bombsNumber = 10;
+                break;
+            case 2:
+                max = 10;
+                min = -9;
+                bombsNumber = 50;
+                break;
+            case 3:
+                max = 15;
+                min = -14;
+                bombsNumber = 80;
+                break;
+        }
+    }
+
     public bool HasStarted()
     {
         return started;
