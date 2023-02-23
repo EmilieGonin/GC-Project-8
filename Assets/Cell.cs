@@ -40,15 +40,18 @@ public class Cell : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !isRevealed)
         {
             GameObject flagsNumber = GameObject.Find("FlagsNumber");
+            SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
 
             if (transform.GetChild(3).gameObject.activeSelf)
             {
+                square.color = new Color32(62, 136, 221, 255);
                 int count = int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) - 1;
                 flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
                 transform.GetChild(3).gameObject.SetActive(false);
             }
             else
             {
+                square.color = new Color32(32, 95, 233, 255);
                 int count = flagsNumber.GetComponent<TextMeshPro>().text == "" ? 1 : int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) + 1;
                 flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
 
