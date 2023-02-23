@@ -111,7 +111,7 @@ public class Spawner : MonoBehaviour
             case 1:
                 max = 5;
                 min = -4;
-                bombsNumber = 20;
+                bombsNumber = 15;
                 camera.orthographicSize = 5;
                 break;
             case 2:

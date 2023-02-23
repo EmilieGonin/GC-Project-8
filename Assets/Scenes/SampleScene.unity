@@ -240,7 +240,7 @@ MonoBehaviour:
   bomb: {fileID: 3568763081450302898, guid: 9ad28ed32b30d7d468a897cdd2c278d9, type: 3}
   max: 5
   min: -4
-  bombsNumber: 10
+  bombsNumber: 20
   camera: {fileID: 519420031}
 --- !u!4 &1755479974
 Transform:
