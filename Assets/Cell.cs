@@ -10,18 +10,6 @@ public class Cell : MonoBehaviour
 {
     [SerializeField] bool isRevealed = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //
-    }
-
     void OnMouseDown()
     {
         GameObject spawner = GameObject.Find("Spawner");
