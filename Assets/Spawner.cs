@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] int max = 10;
     [SerializeField] int min = -9;
     [SerializeField] int bombsNumber = 50;
+    public Camera camera;
     List<GameObject> bombs = new List<GameObject>();
     GameObject[,] cells;
     System.Random random = new System.Random();
@@ -97,10 +98,46 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void RevealAll(GameObject clickedObject)
+    {
+        foreach (var cell in cells)
+        {
+            if (IsAdjacent(clickedObject.transform.position, cell.transform.position))
+            {
+                cell.GetComponent<Cell>().Reveal();
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void SetDifficulty(int difficulty)
+    {
+        switch (difficulty)
+        {
+            case 1:
+                max = 5;
+                min = -4;
+                bombsNumber = 15;
+                camera.orthographicSize = 5;
+                break;
+            case 2:
+                max = 10;
+                min = -9;
+                bombsNumber = 50;
+                camera.orthographicSize = 10;
+                break;
+            case 3:
+                max = 15;
+                min = -14;
+                bombsNumber = 150;
+                camera.orthographicSize = 15;
+                break;
+        }
     }
 
     public bool HasStarted()
