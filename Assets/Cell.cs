@@ -25,7 +25,6 @@ public class Cell : MonoBehaviour
     void OnMouseDown()
     {
         GameObject spawner = GameObject.Find("Spawner");
-        //GameObject text = transform.GetChild(2).gameObject;
 
         if (!spawner.GetComponent<Spawner>().HasStarted())
         {
@@ -40,12 +39,19 @@ public class Cell : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && !isRevealed)
         {
-            Debug.Log("flag");
+            GameObject flagsNumber = GameObject.Find("FlagsNumber");
+
             if (transform.GetChild(3).gameObject.activeSelf)
             {
+                int count = int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) - 1;
+                flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
                 transform.GetChild(3).gameObject.SetActive(false);
-            } else
+            }
+            else
             {
+                int count = flagsNumber.GetComponent<TextMeshPro>().text == "" ? 1 : int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) + 1;
+                flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
+
                 transform.GetChild(3).gameObject.SetActive(true);
             }
         }
