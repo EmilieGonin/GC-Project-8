@@ -20,7 +20,6 @@ public class Spawner : MonoBehaviour
     System.Random random = new System.Random();
     bool started = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         cells = new GameObject[max - min, max - min];
@@ -112,12 +111,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void SetDifficulty(int difficulty)
     {
         switch (difficulty)
@@ -180,8 +173,6 @@ public class Spawner : MonoBehaviour
         {
             for (var j = -1; j <= 1; j++)
             {
-                //Debug.Log("i = " + i + "\n");
-                //Debug.Log("j = " + j + "\n");
                 if (bombPos == cellPos + new Vector2(i, j))
                 {
                     return true;
