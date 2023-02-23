@@ -98,6 +98,17 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void RevealAll(GameObject clickedObject)
+    {
+        foreach (var cell in cells)
+        {
+            if (IsAdjacent(clickedObject.transform.position, cell.transform.position))
+            {
+                cell.GetComponent<Cell>().Reveal();
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

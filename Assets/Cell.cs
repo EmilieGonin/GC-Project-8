@@ -22,15 +22,37 @@ public class Cell : MonoBehaviour
         //
     }
 
-    private void OnMouseDown()
+    void OnMouseDown()
     {
         GameObject spawner = GameObject.Find("Spawner");
+        //GameObject text = transform.GetChild(2).gameObject;
+
         if (!spawner.GetComponent<Spawner>().HasStarted())
         {
             Debug.Log("init");
             spawner.GetComponent<Spawner>().Init(gameObject);
         }
-        
+
+        Reveal();
+    }
+
+    void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1) && !isRevealed)
+        {
+            Debug.Log("flag");
+            if (transform.GetChild(3).gameObject.activeSelf)
+            {
+                transform.GetChild(3).gameObject.SetActive(false);
+            } else
+            {
+                transform.GetChild(3).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void Reveal()
+    {
         if (!isRevealed)
         {
             isRevealed = true;
@@ -52,21 +74,19 @@ public class Cell : MonoBehaviour
             {
                 transform.GetChild(3).gameObject.SetActive(false);
             }
+
+            checkReveal();
         }
     }
 
-    private void OnMouseOver()
+    void checkReveal()
     {
-        if (Input.GetMouseButtonDown(1) && !isRevealed)
+        GameObject spawner = GameObject.Find("Spawner");
+        GameObject text = transform.GetChild(2).gameObject;
+
+        if (text.GetComponent<TextMeshPro>().text == "")
         {
-            Debug.Log("flag");
-            if (transform.GetChild(3).gameObject.activeSelf)
-            {
-                transform.GetChild(3).gameObject.SetActive(false);
-            } else
-            {
-                transform.GetChild(3).gameObject.SetActive(true);
-            }
+            spawner.GetComponent<Spawner>().RevealAll(gameObject);
         }
     }
 }
