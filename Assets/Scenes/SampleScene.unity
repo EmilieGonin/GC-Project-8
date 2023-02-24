@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 1511151227}
   - component: {fileID: 1511151226}
   - component: {fileID: 1511151225}
+  - component: {fileID: 1511151228}
   m_Layer: 0
   m_Name: BombsNumber
   m_TagString: Untagged
@@ -504,6 +505,18 @@ RectTransform:
   m_AnchoredPosition: {x: 2.05, y: 2.3}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1511151228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511151224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77674d35835c3240b9d24dfcfb42ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1755479972
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,11 +546,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd381b34fcbe70247b774b4361e8dbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell: {fileID: 5059228925465934618, guid: 553041f3ab18d0045a3ef2a3c5a01ebd, type: 3}
-  bomb: {fileID: 3568763081450302898, guid: 9ad28ed32b30d7d468a897cdd2c278d9, type: 3}
-  max: 5
-  min: -4
-  bombsNumber: 15
+  _cell: {fileID: 5059228925465934618, guid: 553041f3ab18d0045a3ef2a3c5a01ebd, type: 3}
+  _bomb: {fileID: 3568763081450302898, guid: 9ad28ed32b30d7d468a897cdd2c278d9, type: 3}
+  _max: 5
+  _min: -4
+  _bombsNumber: 15
+  _colorOne: {r: 0.07058824, g: 0.23137255, b: 1, a: 1}
+  _colorTwo: {r: 0.003921569, g: 0.6039216, b: 0.11764706, a: 1}
+  _colorThree: {r: 1, g: 0, b: 0, a: 1}
+  _colorFour: {r: 0.003921569, g: 0.015686275, b: 0.6039216, a: 1}
+  _colorFive: {r: 0.42745098, g: 0.043137256, b: 0.043137256, a: 1}
+  _colorSix: {r: 0.90961254, g: 1, b: 0.33490568, a: 1}
+  _colorSeven: {r: 1, g: 0.0141509175, b: 0.82269496, a: 1}
+  _colorEight: {r: 0.618481, g: 0.26379493, b: 0.9811321, a: 1}
   camera: {fileID: 519420031}
 --- !u!4 &1755479974
 Transform:
@@ -759,6 +780,7 @@ GameObject:
   - component: {fileID: 1847613247}
   - component: {fileID: 1847613246}
   - component: {fileID: 1847613245}
+  - component: {fileID: 1847613248}
   m_Layer: 0
   m_Name: FlagsNumber
   m_TagString: Untagged
@@ -920,6 +942,18 @@ RectTransform:
   m_AnchoredPosition: {x: 2.05, y: 1.2799999}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1847613248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847613244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a1f7005a490bd41bc1d706b6ab01a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2734424697782362814
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,14 +21,14 @@ public class Spawner : MonoBehaviour
     [SerializeField] int _bombsNumber = 15;
 
     [Header("Colors")]
-    [SerializeField] Color _colorOne;
-    [SerializeField] Color _colorTwo;
-    [SerializeField] Color _colorThree;
-    [SerializeField] Color _colorFour;
-    [SerializeField] Color _colorFive;
-    [SerializeField] Color _colorSix;
-    [SerializeField] Color _colorSeven;
-    [SerializeField] Color _colorEight;
+    [SerializeField] Color _colorOne = new Color32(18, 59, 255, 255);
+    [SerializeField] Color _colorTwo = new Color32(1, 154, 30, 255);
+    [SerializeField] Color _colorThree = Color.red;
+    [SerializeField] Color _colorFour = new Color32(1, 4, 154, 255);
+    [SerializeField] Color _colorFive = new Color(109, 11, 11, 255);
+    [SerializeField] Color _colorSix = Color.yellow;
+    [SerializeField] Color _colorSeven = Color.magenta;
+    [SerializeField] Color _colorEight = Color.yellow;
 
     public Camera camera;
 
