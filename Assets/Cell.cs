@@ -8,16 +8,25 @@ using Color = UnityEngine.Color;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] bool isRevealed = false;
+    [Header("Ref")]
+    [SerializeField] SpriteRenderer _square;
+    [SerializeField] TextMeshPro _text;
+    [SerializeField] GameObject _flag;
+
+    [Header("Colors")]
+    [SerializeField] Color _colorHidden;
+    [SerializeField] Color _colorRevealed;
+    [SerializeField] Color _colorFlag;
+    [SerializeField] Color _colorBomb;
+
+    private bool isRevealed = false;
 
     void OnMouseDown()
     {
-        GameObject spawner = GameObject.Find("Spawner");
-
-        if (!spawner.GetComponent<Spawner>().HasStarted())
+        if (!Spawner.Instance.HasStarted())
         {
             Debug.Log("init");
-            spawner.GetComponent<Spawner>().Init(gameObject);
+            Spawner.Instance.Init(gameObject);
         }
 
         Reveal();
@@ -27,23 +36,17 @@ public class Cell : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && !isRevealed)
         {
-            GameObject flagsNumber = GameObject.Find("FlagsNumber");
-            SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-
-            if (transform.GetChild(3).gameObject.activeSelf)
+            if (_flag.activeSelf)
             {
-                square.color = new Color32(62, 136, 221, 255);
-                int count = int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) - 1;
-                flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
-                transform.GetChild(3).gameObject.SetActive(false);
+                _square.color = _colorFlag;
+                _flag.SetActive(false);
+                FlagsNumber.Instance.Sub();
             }
             else
             {
-                square.color = new Color32(32, 95, 233, 255);
-                int count = flagsNumber.GetComponent<TextMeshPro>().text == "" ? 1 : int.Parse(flagsNumber.GetComponent<TextMeshPro>().text) + 1;
-                flagsNumber.GetComponent<TextMeshPro>().text = count.ToString();
-
-                transform.GetChild(3).gameObject.SetActive(true);
+                _square.color = _colorHidden;
+                _flag.SetActive(true);
+                FlagsNumber.Instance.Add();
             }
         }
     }
@@ -53,37 +56,34 @@ public class Cell : MonoBehaviour
         if (!isRevealed)
         {
             isRevealed = true;
-            SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+            Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
 
-            if (transform.childCount == 5)
+            if (bomb != null)
             {
-                square.color = Color.red;
-                transform.GetChild(4).gameObject.SetActive(true);
+                _square.color = _colorBomb;
+                bomb.gameObject.SetActive(true);
                 Debug.Log("game over");
             }
             else
             {
-                square.color = Color.white;
-                transform.GetChild(2).gameObject.SetActive(true);
+                _square.color = _colorRevealed;
+                _text.gameObject.SetActive(true);
             }
 
-            if (transform.GetChild(3).gameObject.activeSelf)
+            if (_flag.activeSelf)
             {
-                transform.GetChild(3).gameObject.SetActive(false);
+                _flag.SetActive(false);
             }
 
-            checkReveal();
+            CheckReveal();
         }
     }
 
-    void checkReveal()
+    void CheckReveal()
     {
-        GameObject spawner = GameObject.Find("Spawner");
-        GameObject text = transform.GetChild(2).gameObject;
-
-        if (text.GetComponent<TextMeshPro>().text == "")
+        if (_text.text == "")
         {
-            spawner.GetComponent<Spawner>().RevealAll(gameObject);
+            Spawner.Instance.RevealAll(gameObject);
         }
     }
 }
