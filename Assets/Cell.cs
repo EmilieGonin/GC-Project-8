@@ -19,6 +19,11 @@ public class Cell : MonoBehaviour
     [SerializeField] Color _colorFlag;
     [SerializeField] Color _colorBomb;
 
+    [Header("Sound Effects")]
+    public AudioSource ClickSound;
+    public AudioSource FlagSound;
+    public AudioSource FlagDestroySound;
+
     private bool isRevealed = false;
 
     void OnMouseDown()
@@ -27,6 +32,11 @@ public class Cell : MonoBehaviour
         {
             Debug.Log("init");
             Spawner.Instance.Init(gameObject);
+        }
+
+        if (!isRevealed)
+        {
+            ClickSound.Play();
         }
 
         Reveal();
@@ -38,13 +48,15 @@ public class Cell : MonoBehaviour
         {
             if (_flag.activeSelf)
             {
-                _square.color = _colorFlag;
+                _square.color = _colorHidden;
+                FlagDestroySound.Play();
                 _flag.SetActive(false);
                 FlagsNumber.Instance.Sub();
             }
             else
             {
-                _square.color = _colorHidden;
+                _square.color = _colorFlag;
+                FlagSound.Play();
                 _flag.SetActive(true);
                 FlagsNumber.Instance.Add();
             }
