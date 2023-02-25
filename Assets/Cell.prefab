@@ -345,6 +345,7 @@ MonoBehaviour:
   _colorRevealed: {r: 1, g: 1, b: 1, a: 1}
   _colorFlag: {r: 0.1254902, g: 0.37254903, b: 0.9137255, a: 1}
   _colorBomb: {r: 1, g: 0, b: 0, a: 1}
+  _colorError: {r: 1, g: 0.495283, b: 0.495283, a: 1}
 --- !u!61 &6346275594709302672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -586,6 +587,7 @@ MonoBehaviour:
   _colorRevealed: {r: 0, g: 0, b: 0, a: 0}
   _colorFlag: {r: 0, g: 0, b: 0, a: 0}
   _colorBomb: {r: 0, g: 0, b: 0, a: 0}
+  _colorError: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7773144225683430183
 GameObject:
   m_ObjectHideFlags: 0
