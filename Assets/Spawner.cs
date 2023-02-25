@@ -72,12 +72,9 @@ public class Spawner : MonoBehaviour
         _started = true;
 
         //Bombs
-        for (int i = 0; i < _bombsNumber; i++)
+        while (_bombs.Count < _bombsNumber)
         {
-            while (!AddBomb(clickedCell))
-            {
-                AddBomb(clickedCell);
-            }
+            AddBomb(clickedCell);
         }
 
         //Cells
@@ -192,8 +189,6 @@ public class Spawner : MonoBehaviour
     {
         int x = _random.Next(_min, _max);
         int y = _random.Next(_min, _max);
-        Debug.Log("x :" + x);
-        Debug.Log("y :" + y);
         GameObject bomb = Instantiate(_bomb, new Vector2(x, y), Quaternion.identity);
         _bomb.name = $"{x}, {y} Bomb";
 
