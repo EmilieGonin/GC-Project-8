@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +16,7 @@ public class Spawner : MonoBehaviour
     [Header("Ref")]
     [SerializeField] GameObject _cell;
     [SerializeField] GameObject _bomb;
+    [SerializeField] Camera _camera;
 
     [Header("Settings")]
     [SerializeField] int _max = 5;
@@ -30,10 +33,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] Color _colorSeven = Color.magenta;
     [SerializeField] Color _colorEight = Color.yellow;
 
-    public Camera camera;
+    public bool IsPlaying { get; private set; }
 
     private List<GameObject> _bombs = new List<GameObject>();
     private GameObject[,] _cells;
+    private List<GameObject> _revealedCells;
+    private List<GameObject> _flagedCells;
     private System.Random _random = new System.Random();
     private bool _started = false;
 
@@ -44,8 +49,11 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        BombsNumber.Instance.SetCount(_bombsNumber);
+        IsPlaying = true;
+        Parameters.Instance.SetBombs(_bombsNumber);
         _cells = new GameObject[_max - _min, _max - _min];
+        _revealedCells = new List<GameObject>();
+        _flagedCells = new List<GameObject>();
 
         for (int i = _min; i < _max; i++)
         {
@@ -124,7 +132,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void RevealAll(GameObject clickedObject)
+    public void RevealAllAdjacent(GameObject clickedObject)
     {
         foreach (var cell in _cells)
         {
@@ -133,6 +141,20 @@ public class Spawner : MonoBehaviour
                 cell.GetComponent<Cell>().Reveal();
             }
         }
+    }
+
+    public void RevealAll()
+    {
+        IsPlaying = false;
+        foreach (var cell in _cells)
+        {
+            cell.GetComponent<Cell>().Reveal();
+        }
+    }
+
+    public bool IsAllRevealedAndFlaged()
+    {
+        return _revealedCells.Count + _flagedCells.Count == _cells.Length;
     }
 
     private void SetDifficulty(int difficulty)
@@ -144,19 +166,19 @@ public class Spawner : MonoBehaviour
                 _max = 5;
                 _min = -4;
                 _bombsNumber = 15;
-                camera.orthographicSize = 5;
+                _camera.orthographicSize = 5;
                 break;
             case 2:
                 _max = 10;
                 _min = -9;
                 _bombsNumber = 50;
-                camera.orthographicSize = 10;
+                _camera.orthographicSize = 10;
                 break;
             case 3:
                 _max = 15;
                 _min = -14;
                 _bombsNumber = 150;
-                camera.orthographicSize = 15;
+                _camera.orthographicSize = 15;
                 break;
         }
     }
@@ -175,21 +197,23 @@ public class Spawner : MonoBehaviour
         GameObject bomb = Instantiate(_bomb, new Vector2(x, y), Quaternion.identity);
         _bomb.name = $"{x}, {y} Bomb";
 
-        //On v�rifie si l'emplacement choisis n'est pas d�j� pris par une bombe
-        foreach (var bombItem in _bombs)
+        if (IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
-            if (bomb.transform.position == bombItem.transform.position)
-            {
-                Debug.Log("position already taken");
-                Destroy(bomb);
-                return false;
-            }
-        }
-
-        if (IsAdjacent(bomb.transform.position, clickedCell.transform.position)) {
             Debug.Log("position not safe");
             Destroy(bomb);
             return false;
+        }
+        else
+        {
+            foreach (var bombItem in _bombs)
+            {
+                if (bomb.transform.position == bombItem.transform.position)
+                {
+                    Debug.Log("position already taken");
+                    Destroy(bomb);
+                    return false;
+                }
+            }
         }
 
         _bombs.Add(bomb);
@@ -207,12 +231,42 @@ public class Spawner : MonoBehaviour
                 {
                     return true;
                 }
-                else
-                {
-                    
-                }
             }
         }
         return false;
+    }
+
+    public void AddFlagedCell(GameObject cell)
+    {
+        _flagedCells.Add(cell);
+    }
+
+    public void AddRevealedCell(GameObject cell)
+    {
+        _revealedCells.Add(cell);
+    }
+
+    public void CheckWin()
+    {
+        bool hasWin = true;
+
+        if (Parameters.Instance.FlagLimitReached() && IsAllRevealedAndFlaged())
+        {
+            foreach (var cell in _flagedCells)
+            {
+                Bomb bomb = cell.transform.GetComponentInChildren<Bomb>(true);
+
+                if (bomb == null)
+                {
+                    hasWin = false;
+                }
+            }
+
+            if (hasWin)
+            {
+                Debug.Log("win");
+                IsPlaying = false;
+            }
+        }
     }
 }
