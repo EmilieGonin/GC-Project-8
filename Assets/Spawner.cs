@@ -74,7 +74,7 @@ public class Spawner : MonoBehaviour
         //Bombs
         for (int i = 0; i < _bombsNumber; i++)
         {
-            if (!AddBomb(clickedCell))
+            while (!AddBomb(clickedCell))
             {
                 AddBomb(clickedCell);
             }
