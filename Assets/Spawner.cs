@@ -154,7 +154,7 @@ public class Spawner : MonoBehaviour
         return _revealedCells.Count + _flagedCells.Count == _cells.Length;
     }
 
-    private void SetDifficulty(int difficulty)
+    public void SetDifficulty(int difficulty)
     {
         //Move FlagsNumber & BombsNumber depending on difficulty
         switch (difficulty)
