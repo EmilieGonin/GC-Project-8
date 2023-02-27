@@ -20,6 +20,10 @@ public class Cell : MonoBehaviour
     [SerializeField] Color _colorBomb;
     [SerializeField] Color _colorError;
 
+    [Header("Sound Effects")]
+    public AudioSource ClickSound;
+    public AudioSource FlagSound;
+    public AudioSource FlagDestroySound;
     private bool _isRevealed = false;
 
     private void OnMouseDown()
@@ -33,6 +37,7 @@ public class Cell : MonoBehaviour
         {
             Reveal();
         }
+
     }
 
     private void OnMouseOver()
@@ -41,13 +46,15 @@ public class Cell : MonoBehaviour
         {
             if (_flag.activeSelf)
             {
-                _square.color = _colorFlag;
+                _square.color = _colorHidden;
+                FlagDestroySound.Play();
                 _flag.SetActive(false);
                 Parameters.Instance.SubFlag();
             }
             else
             {
-                _square.color = _colorHidden;
+                _square.color = _colorFlag;
+                FlagSound.Play();
                 _flag.SetActive(true);
                 Parameters.Instance.AddFlag();
                 Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
@@ -66,6 +73,7 @@ public class Cell : MonoBehaviour
     {
         if (!_isRevealed)
         {
+        ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
             Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
