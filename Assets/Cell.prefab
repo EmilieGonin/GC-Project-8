@@ -348,6 +348,7 @@ MonoBehaviour:
   _colorRevealed: {r: 1, g: 1, b: 1, a: 1}
   _colorFlag: {r: 0.1254902, g: 0.37254903, b: 0.9137255, a: 1}
   _colorBomb: {r: 1, g: 0, b: 0, a: 1}
+    _colorError: {r: 1, g: 0.495283, b: 0.495283, a: 1}
   ClickSound: {fileID: 4252679156982182126}
   FlagSound: {fileID: -1875957565728192190}
   FlagDestroySound: {fileID: -1090455466062340852}
@@ -880,6 +881,7 @@ MonoBehaviour:
   _colorRevealed: {r: 0, g: 0, b: 0, a: 0}
   _colorFlag: {r: 0, g: 0, b: 0, a: 0}
   _colorBomb: {r: 0, g: 0, b: 0, a: 0}
+    _colorError: {r: 0, g: 0, b: 0, a: 0}
   ClickSound: {fileID: 0}
   FlagSound: {fileID: 0}
   FlagDestroySound: {fileID: 0}
