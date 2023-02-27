@@ -90,6 +90,7 @@ public class Spawner : MonoBehaviour
                     if (bombItem.transform.position == cell.transform.position)
                     {
                         bombItem.transform.parent = cell.transform;
+                        cell.GetComponent<Cell>().HasBomb();
                     }
                     else if (IsAdjacent(bombItem.transform.position, cell.transform.position))
                     {

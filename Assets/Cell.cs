@@ -24,6 +24,8 @@ public class Cell : MonoBehaviour
     public AudioSource ClickSound;
     public AudioSource FlagSound;
     public AudioSource FlagDestroySound;
+
+    private bool _bomb = false;
     private bool _isRevealed = false;
 
     private void OnMouseDown()
@@ -71,15 +73,13 @@ public class Cell : MonoBehaviour
 
     public void Reveal()
     {
-        Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
-
         if (!_isRevealed && !_flag.activeSelf)
         {
-        ClickSound.Play();
+            ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
 
-            if (bomb != null)
+            if (_bomb)
             {
                 if (Spawner.Instance.IsPlaying)
                 {
@@ -91,7 +91,7 @@ public class Cell : MonoBehaviour
                     _square.color = _colorRevealed;
                 }
 
-                bomb.gameObject.SetActive(true);
+                transform.GetComponentInChildren<Bomb>(true).gameObject.SetActive(true);
                 Spawner.Instance.RevealAll();
 
             }
@@ -104,7 +104,7 @@ public class Cell : MonoBehaviour
             CheckReveal();
             Spawner.Instance.CheckWin();
         }
-        else if (bomb != null && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        else if (_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
         {
             _square.color = _colorError;
         }
@@ -121,5 +121,10 @@ public class Cell : MonoBehaviour
     public bool IsRevealed()
     {
         return _isRevealed;
+    }
+
+    public void HasBomb()
+    {
+        _bomb = true;
     }
 }
