@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,149 +11,257 @@ using static UnityEngine.UI.Image;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] GameObject cell;
-    [SerializeField] GameObject bomb;
-    [SerializeField] int max = 10;
-    [SerializeField] int min = -9;
-    [SerializeField] int bombsNumber = 50;
-    List<GameObject> bombs = new List<GameObject>();
-    GameObject[,] cells;
-    System.Random random = new System.Random();
-    bool started = false;
+    public static Spawner Instance { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("Ref")]
+    [SerializeField] GameObject _cell;
+    [SerializeField] GameObject _bomb;
+    [SerializeField] Camera _camera;
+
+    [Header("Settings")]
+    [SerializeField] int _max = 5;
+    [SerializeField] int _min = -4;
+    [SerializeField] int _bombsNumber = 15;
+
+    [Header("Colors")]
+    [SerializeField] Color _colorOne = new Color32(18, 59, 255, 255);
+    [SerializeField] Color _colorTwo = new Color32(1, 154, 30, 255);
+    [SerializeField] Color _colorThree = Color.red;
+    [SerializeField] Color _colorFour = new Color32(1, 4, 154, 255);
+    [SerializeField] Color _colorFive = new Color(109, 11, 11, 255);
+    [SerializeField] Color _colorSix = Color.yellow;
+    [SerializeField] Color _colorSeven = Color.magenta;
+    [SerializeField] Color _colorEight = Color.yellow;
+
+    public bool IsPlaying { get; private set; }
+
+    private List<GameObject> _bombs = new List<GameObject>();
+    private GameObject[,] _cells;
+    private List<GameObject> _revealedCells;
+    private List<GameObject> _flagedCells;
+    private System.Random _random = new System.Random();
+    private bool _started = false;
+
+    private void Awake()
     {
-        cells = new GameObject[max - min, max - min];
-        for (int i = min; i < max; i++)
+        Instance = this;
+    }
+
+    private void Start()
+    {
+        IsPlaying = true;
+        Parameters.Instance.SetBombs(_bombsNumber);
+        _cells = new GameObject[_max - _min, _max - _min];
+        _revealedCells = new List<GameObject>();
+        _flagedCells = new List<GameObject>();
+
+        for (int i = _min; i < _max; i++)
         {
-            for (int j = min; j < max; j++)
+            for (int j = _min; j < _max; j++)
             {
-                GameObject newCell = Instantiate(cell, new Vector2(j, i), Quaternion.identity);
-                cells[j - min, i - min] = newCell;
-                GameObject text = newCell.transform.GetChild(2).gameObject;
-                text.SetActive(false);
+                GameObject cell = Instantiate(_cell, new Vector2(j, i), Quaternion.identity);
+                cell.name = $"{i}, {j} Cell";
+                cell.transform.GetComponentInChildren<TextMeshPro>().gameObject.SetActive(false);
+                _cells[j - _min, i - _min] = cell;
             }
         }
     }
 
     public void Init(GameObject clickedCell)
     {
-        started = true;
+        _started = true;
 
         //Bombs
-        for (int i = 0; i < bombsNumber; i++)
+        while (_bombs.Count < _bombsNumber)
         {
-            if (!AddBomb(clickedCell))
-            {
-                AddBomb(clickedCell);
-            }
+            AddBomb(clickedCell);
         }
 
         //Cells
-        for (int i = min; i < max; i++)
+        for (int i = _min; i < _max; i++)
         {
-            for (int j = min; j < max; j++)
+            for (int j = _min; j < _max; j++)
             {
-                GameObject currentCell = cells[j - min, i - min];
+                GameObject cell = _cells[j - _min, i - _min];
+                TextMeshPro text = cell.GetComponentInChildren<TextMeshPro>(true);
 
-                GameObject text = currentCell.transform.GetChild(2).gameObject;
-
-                foreach (var bombItem in bombs)
+                foreach (var bombItem in _bombs)
                 {
-                    if (bombItem.transform.position == currentCell.transform.position)
+                    if (bombItem.transform.position == cell.transform.position)
                     {
-                        bombItem.transform.parent = currentCell.transform;
+                        bombItem.transform.parent = cell.transform;
                     }
-                    else if (IsAdjacent(bombItem.transform.position, currentCell.transform.position))
+                    else if (IsAdjacent(bombItem.transform.position, cell.transform.position))
                     {
-                        int count = text.GetComponent<TextMeshPro>().text == "" ? 1 : int.Parse(text.GetComponent<TextMeshPro>().text) + 1;
-                        text.GetComponent<TextMeshPro>().text = count.ToString();
+                        int count = text.text == "" ? 1 : int.Parse(text.text) + 1;
+                        text.text = count.ToString();
 
                         switch (count)
                         {
                             case 1:
-                                text.GetComponent<TextMeshPro>().color = new Color32(18, 59, 255, 255);
+                                text.color = _colorOne;
                                 break;
                             case 2:
-                                text.GetComponent<TextMeshPro>().color = new Color32(1, 154, 30, 255);
+                                text.color = _colorTwo;
                                 break;
                             case 3:
-                                text.GetComponent<TextMeshPro>().color = Color.red;
+                                text.color = _colorThree;
                                 break;
                             case 4:
-                                text.GetComponent<TextMeshPro>().color = new Color32(1, 4, 154, 255);
+                                text.color = _colorFour;
                                 break;
                             case 5:
-                                text.GetComponent<TextMeshPro>().color = new Color(109, 11, 11, 255);
+                                text.color = _colorFive;
                                 break;
                             case 6:
-                                text.GetComponent<TextMeshPro>().color = Color.yellow;
+                                text.color = _colorSix;
+                                break;
+                            case 7:
+                                text.color = _colorSeven;
+                                break;
+                            case 8:
+                                text.color = _colorEight;
                                 break;
                         }
                     }
                 }
-
-                text.SetActive(false);
             }
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RevealAllAdjacent(GameObject clickedObject)
     {
-        
+        foreach (var cell in _cells)
+        {
+            if (IsAdjacent(clickedObject.transform.position, cell.transform.position))
+            {
+                cell.GetComponent<Cell>().Reveal();
+            }
+        }
+    }
+
+    public void RevealAll()
+    {
+        IsPlaying = false;
+        foreach (var cell in _cells)
+        {
+            cell.GetComponent<Cell>().Reveal();
+        }
+    }
+
+    public bool IsAllRevealedAndFlaged()
+    {
+        return _revealedCells.Count + _flagedCells.Count == _cells.Length;
+    }
+
+    private void SetDifficulty(int difficulty)
+    {
+        //Move FlagsNumber & BombsNumber depending on difficulty
+        switch (difficulty)
+        {
+            case 1:
+                _max = 5;
+                _min = -4;
+                _bombsNumber = 15;
+                _camera.orthographicSize = 5;
+                break;
+            case 2:
+                _max = 10;
+                _min = -9;
+                _bombsNumber = 50;
+                _camera.orthographicSize = 10;
+                break;
+            case 3:
+                _max = 15;
+                _min = -14;
+                _bombsNumber = 150;
+                _camera.orthographicSize = 15;
+                break;
+        }
     }
 
     public bool HasStarted()
     {
-        return started;
+        return _started;
     }
 
-    bool AddBomb(GameObject clickedCell)
+    private bool AddBomb(GameObject clickedCell)
     {
-        int x = random.Next(min, max);
-        int y = random.Next(min, max);
-        GameObject newBomb = Instantiate(bomb, new Vector2(x, y), Quaternion.identity);
+        int x = _random.Next(_min, _max);
+        int y = _random.Next(_min, _max);
+        GameObject bomb = Instantiate(_bomb, new Vector2(x, y), Quaternion.identity);
+        _bomb.name = $"{x}, {y} Bomb";
 
-        //On v�rifie si l'emplacement choisis n'est pas d�j� pris par une bombe
-        foreach (var bombItem in bombs)
+        if (IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
-            if (newBomb.transform.position == bombItem.transform.position)
+            Debug.Log("position not safe");
+            Destroy(bomb);
+            return false;
+        }
+        else
+        {
+            foreach (var bombItem in _bombs)
             {
-                Destroy(newBomb);
-                return false;
+                if (bomb.transform.position == bombItem.transform.position)
+                {
+                    Debug.Log("position already taken");
+                    Destroy(bomb);
+                    return false;
+                }
             }
         }
 
-        if (IsAdjacent(newBomb.transform.position, clickedCell.transform.position)) {
-            Destroy(newBomb);
-            return false;
-        }
-
-        bombs.Add(newBomb);
-        newBomb.SetActive(false);
+        _bombs.Add(bomb);
+        bomb.SetActive(false);
         return true;
     }
 
-    bool IsAdjacent(Vector2 bombPos, Vector2 cellPos)
+    private bool IsAdjacent(Vector2 bombPos, Vector2 cellPos)
     {
         for (var i = -1; i <= 1; i++)
         {
             for (var j = -1; j <= 1; j++)
             {
-                //Debug.Log("i = " + i + "\n");
-                //Debug.Log("j = " + j + "\n");
                 if (bombPos == cellPos + new Vector2(i, j))
                 {
                     return true;
                 }
-                else
-                {
-                    
-                }
             }
         }
         return false;
+    }
+
+    public void AddFlagedCell(GameObject cell)
+    {
+        _flagedCells.Add(cell);
+    }
+
+    public void AddRevealedCell(GameObject cell)
+    {
+        _revealedCells.Add(cell);
+    }
+
+    public void CheckWin()
+    {
+        bool hasWin = true;
+
+        if (Parameters.Instance.FlagLimitReached() && IsAllRevealedAndFlaged())
+        {
+            foreach (var cell in _flagedCells)
+            {
+                Bomb bomb = cell.transform.GetComponentInChildren<Bomb>(true);
+
+                if (bomb == null)
+                {
+                    hasWin = false;
+                }
+            }
+
+            if (hasWin)
+            {
+                Debug.Log("win");
+                IsPlaying = false;
+            }
+        }
     }
 }

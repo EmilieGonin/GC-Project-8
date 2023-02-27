@@ -8,65 +8,118 @@ using Color = UnityEngine.Color;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] bool isRevealed = false;
+    [Header("Ref")]
+    [SerializeField] SpriteRenderer _square;
+    [SerializeField] TextMeshPro _text;
+    [SerializeField] GameObject _flag;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Colors")]
+    [SerializeField] Color _colorHidden;
+    [SerializeField] Color _colorRevealed;
+    [SerializeField] Color _colorFlag;
+    [SerializeField] Color _colorBomb;
+    [SerializeField] Color _colorError;
 
-    // Update is called once per frame
-    void Update()
-    {
-        //
-    }
+    private bool _isRevealed = false;
 
     private void OnMouseDown()
     {
-        GameObject spawner = GameObject.Find("Spawner");
-        if (!spawner.GetComponent<Spawner>().HasStarted())
+        if (!Spawner.Instance.HasStarted())
         {
-            Debug.Log("init");
-            spawner.GetComponent<Spawner>().Init(gameObject);
+            Spawner.Instance.Init(gameObject);
         }
-        
-        if (!isRevealed)
+
+        if (Spawner.Instance.IsPlaying)
         {
-            isRevealed = true;
-            SpriteRenderer square = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-
-            if (transform.childCount == 5)
-            {
-                square.color = Color.red;
-                transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("game over");
-            }
-            else
-            {
-                square.color = Color.white;
-                transform.GetChild(2).gameObject.SetActive(true);
-            }
-
-            if (transform.GetChild(3).gameObject.activeSelf)
-            {
-                transform.GetChild(3).gameObject.SetActive(false);
-            }
+            Reveal();
         }
     }
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && !isRevealed)
+        if (Input.GetMouseButtonDown(1) && !Parameters.Instance.FlagLimitReached() && !_isRevealed && Spawner.Instance.IsPlaying)
         {
-            Debug.Log("flag");
-            if (transform.GetChild(3).gameObject.activeSelf)
+            if (_flag.activeSelf)
             {
-                transform.GetChild(3).gameObject.SetActive(false);
-            } else
-            {
-                transform.GetChild(3).gameObject.SetActive(true);
+                _square.color = _colorFlag;
+                _flag.SetActive(false);
+                Parameters.Instance.SubFlag();
             }
+            else
+            {
+                _square.color = _colorHidden;
+                _flag.SetActive(true);
+                Parameters.Instance.AddFlag();
+                Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
+
+                if (bomb != null)
+                {
+                    Spawner.Instance.AddFlagedCell(gameObject);
+                }
+            }
+
+            Spawner.Instance.CheckWin();
         }
+    }
+
+    public void Reveal()
+    {
+        if (!_isRevealed)
+        {
+            _isRevealed = true;
+            Spawner.Instance.AddRevealedCell(gameObject);
+            Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
+
+            if (bomb != null)
+            {
+                if (Spawner.Instance.IsPlaying)
+                {
+                    _square.color = _colorBomb;
+                    Debug.Log("game over");
+                }
+                else if (!_flag.activeSelf)
+                {
+                    _square.color = _colorRevealed;
+                }
+
+                if (Spawner.Instance.IsPlaying || (!Spawner.Instance.IsPlaying && !_flag.activeSelf))
+                {
+                    bomb.gameObject.SetActive(true);
+                }
+
+                Spawner.Instance.RevealAll();
+
+            }
+            else if (!Spawner.Instance.IsPlaying && _flag.activeSelf)
+            {
+                _square.color = _colorError;
+            }
+            else if (Spawner.Instance.IsPlaying)
+            {
+                _square.color = _colorRevealed;
+                _text.gameObject.SetActive(true);
+            }
+
+            if (Spawner.Instance.IsPlaying && _flag.activeSelf)
+            {
+                _flag.SetActive(false);
+            }
+
+            CheckReveal();
+            Spawner.Instance.CheckWin();
+        }
+    }
+
+    private void CheckReveal()
+    {
+        if (_text.text == "")
+        {
+            Spawner.Instance.RevealAllAdjacent(gameObject);
+        }
+    }
+
+    public bool IsRevealed()
+    {
+        return _isRevealed;
     }
 }
