@@ -431,6 +431,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnStartClick
       objectReference: {fileID: 0}
+    - target: {fileID: 3370051746182130146, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 333.4603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746182130146, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 96.2979
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746182130146, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 708.7207
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746182130146, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 415.18347
+      objectReference: {fileID: 0}
     - target: {fileID: 3370051746248833581, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -439,9 +455,41 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnMenuClick
       objectReference: {fileID: 0}
+    - target: {fileID: 3370051746248833586, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 333.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746248833586, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 96.302
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746248833586, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 708.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746248833586, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 280
+      objectReference: {fileID: 0}
     - target: {fileID: 3370051746587794825, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746800457521, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051746800457521, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051747395504162, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370051747395504162, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
