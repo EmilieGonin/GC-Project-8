@@ -23,8 +23,4 @@ public class ButtonBehaviour : MonoBehaviour
         //Debug.Log("Start button clicked");
         SceneManager.LoadScene("MenuScene");
     }
-    public void OnNewGameClick()
-    {
-        SceneManager.LoadScene("NewGameScene");
-    }
 }

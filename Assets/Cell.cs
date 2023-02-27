@@ -64,7 +64,7 @@ public class Cell : MonoBehaviour
 
     public void Reveal()
     {
-        if (!_isRevealed && !_flag.activeSelf)
+        if (!_isRevealed)
         {
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
