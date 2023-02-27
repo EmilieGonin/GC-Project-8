@@ -71,12 +71,13 @@ public class Cell : MonoBehaviour
 
     public void Reveal()
     {
-        if (!_isRevealed)
+        Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
+
+        if (!_isRevealed && !_flag.activeSelf)
         {
         ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
-            Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
 
             if (bomb != null)
             {
@@ -85,22 +86,14 @@ public class Cell : MonoBehaviour
                     _square.color = _colorBomb;
                     Debug.Log("game over");
                 }
-                else if (!_flag.activeSelf)
+                else
                 {
                     _square.color = _colorRevealed;
                 }
 
-                if (Spawner.Instance.IsPlaying || (!Spawner.Instance.IsPlaying && !_flag.activeSelf))
-                {
-                    bomb.gameObject.SetActive(true);
-                }
-
+                bomb.gameObject.SetActive(true);
                 Spawner.Instance.RevealAll();
 
-            }
-            else if (!Spawner.Instance.IsPlaying && _flag.activeSelf)
-            {
-                _square.color = _colorError;
             }
             else if (Spawner.Instance.IsPlaying)
             {
@@ -108,13 +101,12 @@ public class Cell : MonoBehaviour
                 _text.gameObject.SetActive(true);
             }
 
-            if (Spawner.Instance.IsPlaying && _flag.activeSelf)
-            {
-                _flag.SetActive(false);
-            }
-
             CheckReveal();
             Spawner.Instance.CheckWin();
+        }
+        else if (bomb != null && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        {
+            _square.color = _colorError;
         }
     }
 
