@@ -32,6 +32,12 @@ public class Cell : MonoBehaviour
         {
             Spawner.Instance.Init(gameObject);
         }
+
+        if (Spawner.Instance.IsPlaying)
+        {
+            Reveal();
+        }
+
     }
 
     private void OnMouseOver()
