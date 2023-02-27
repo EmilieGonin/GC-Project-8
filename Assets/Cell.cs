@@ -104,7 +104,7 @@ public class Cell : MonoBehaviour
             CheckReveal();
             Spawner.Instance.CheckWin();
         }
-        else if (_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        else if (!_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
         {
             _square.color = _colorError;
         }
