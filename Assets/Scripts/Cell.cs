@@ -24,6 +24,7 @@ public class Cell : MonoBehaviour
     public AudioSource ClickSound;
     public AudioSource FlagSound;
     public AudioSource FlagDestroySound;
+    //Change names with _
 
     private bool _bomb = false;
     private bool _isRevealed = false;

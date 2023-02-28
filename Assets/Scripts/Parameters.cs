@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class Parameters : MonoBehaviour
 {
+    public static Parameters Instance { get; private set; }
+
+    [Header("Ref")]
     [SerializeField] TextMeshPro _flags;
     [SerializeField] TextMeshPro _bombs;
 
-    public static Parameters Instance { get; private set; }
     private int _flagsNumber;
     private int _bombsNumber;
 

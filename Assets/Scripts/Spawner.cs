@@ -36,7 +36,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] Color _colorEight = Color.yellow;
 
     public bool IsPlaying { get; private set; }
-
     private List<GameObject> _bombs = new List<GameObject>();
     private GameObject[,] _cells;
     private List<GameObject> _revealedCells;
