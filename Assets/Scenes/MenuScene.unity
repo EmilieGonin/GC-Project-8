@@ -693,7 +693,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 220234472}
         m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
-        m_MethodName: OnStartClick
+        m_MethodName: OnNewGameClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
