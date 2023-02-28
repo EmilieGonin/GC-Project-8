@@ -7,9 +7,13 @@ public class Timer : MonoBehaviour
 {
     public static Timer Instance { get; private set; }
 
+    [Header("Ref")]
     [SerializeField] TextMeshPro _text;
+
+    [Header("Colors")]
     [SerializeField] Color _colorStarted;
     [SerializeField] Color _colorPaused;
+
     private bool _started;
     private float _seconds;
     private int _minutes;
