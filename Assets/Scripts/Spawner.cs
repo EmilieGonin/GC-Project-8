@@ -71,6 +71,7 @@ public class Spawner : MonoBehaviour
 
     public void Init(GameObject clickedCell)
     {
+        Timer.Instance.Run();
         _started = true;
 
         //Bombs
