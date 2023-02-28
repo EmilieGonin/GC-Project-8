@@ -146,6 +146,7 @@ public class Spawner : MonoBehaviour
     public void RevealAll()
     {
         IsPlaying = false;
+        Timer.Instance.Pause();
         foreach (var cell in _cells)
         {
             cell.GetComponent<Cell>().Reveal();
@@ -268,6 +269,7 @@ public class Spawner : MonoBehaviour
             {
                 Debug.Log("win");
                 IsPlaying = false;
+                Timer.Instance.Pause();
             }
         }
     }
