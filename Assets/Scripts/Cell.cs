@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
