@@ -24,6 +24,8 @@ public class Cell : MonoBehaviour
     public AudioSource ClickSound;
     public AudioSource FlagSound;
     public AudioSource FlagDestroySound;
+
+    private bool _bomb = false;
     private bool _isRevealed = false;
 
     private void OnMouseDown()
@@ -71,36 +73,27 @@ public class Cell : MonoBehaviour
 
     public void Reveal()
     {
-        if (!_isRevealed)
+        if (!_isRevealed && !_flag.activeSelf)
         {
-        ClickSound.Play();
+            ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
-            Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
 
-            if (bomb != null)
+            if (_bomb)
             {
                 if (Spawner.Instance.IsPlaying)
                 {
                     _square.color = _colorBomb;
                     Debug.Log("game over");
                 }
-                else if (!_flag.activeSelf)
+                else
                 {
                     _square.color = _colorRevealed;
                 }
 
-                if (Spawner.Instance.IsPlaying || (!Spawner.Instance.IsPlaying && !_flag.activeSelf))
-                {
-                    bomb.gameObject.SetActive(true);
-                }
-
+                transform.GetComponentInChildren<Bomb>(true).gameObject.SetActive(true);
                 Spawner.Instance.RevealAll();
 
-            }
-            else if (!Spawner.Instance.IsPlaying && _flag.activeSelf)
-            {
-                _square.color = _colorError;
             }
             else if (Spawner.Instance.IsPlaying)
             {
@@ -108,13 +101,12 @@ public class Cell : MonoBehaviour
                 _text.gameObject.SetActive(true);
             }
 
-            if (Spawner.Instance.IsPlaying && _flag.activeSelf)
-            {
-                _flag.SetActive(false);
-            }
-
             CheckReveal();
             Spawner.Instance.CheckWin();
+        }
+        else if (!_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        {
+            _square.color = _colorError;
         }
     }
 
@@ -129,5 +121,10 @@ public class Cell : MonoBehaviour
     public bool IsRevealed()
     {
         return _isRevealed;
+    }
+
+    public void HasBomb()
+    {
+        _bomb = true;
     }
 }
