@@ -22,6 +22,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] int _max = 5;
     [SerializeField] int _min = -4;
     [SerializeField] int _bombsNumber = 15;
+    [SerializeField] bool _unsafeMode = false;
+    [SerializeField] bool _luckyMode = false;
 
     [Header("Colors")]
     [SerializeField] Color _colorOne = new Color32(18, 59, 255, 255);
@@ -193,24 +195,28 @@ public class Spawner : MonoBehaviour
         GameObject bomb = Instantiate(_bomb, new Vector2(x, y), Quaternion.identity);
         _bomb.name = $"{x}, {y} Bomb";
 
-        if (IsAdjacent(bomb.transform.position, clickedCell.transform.position))
+        if (!_unsafeMode && !_luckyMode && IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
             Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
-        else
+        else if (!_unsafeMode && (bomb.transform.position == clickedCell.transform.position)) {
+            Debug.Log("position not safe");
+            Destroy(bomb);
+            return false;
+        }
+
+        foreach (var bombItem in _bombs)
         {
-            foreach (var bombItem in _bombs)
+            if (bomb.transform.position == bombItem.transform.position)
             {
-                if (bomb.transform.position == bombItem.transform.position)
-                {
-                    Debug.Log("position already taken");
-                    Destroy(bomb);
-                    return false;
-                }
+                Debug.Log("position already taken");
+                Destroy(bomb);
+                return false;
             }
         }
+
 
         _bombs.Add(bomb);
         bomb.SetActive(false);
@@ -264,5 +270,15 @@ public class Spawner : MonoBehaviour
                 IsPlaying = false;
             }
         }
+    }
+
+    private void UnsafeMode(bool parameter)
+    {
+        _unsafeMode = parameter;
+    }
+
+    private void LuckyMode(bool parameter)
+    {
+        _luckyMode = parameter;
     }
 }
