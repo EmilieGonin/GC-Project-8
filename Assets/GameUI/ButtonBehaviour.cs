@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    
     public void OnStartClick()
     {
         //Debug.Log("Start button clicked");

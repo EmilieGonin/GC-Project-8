@@ -44,7 +44,7 @@ public class Cell : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && !Parameters.Instance.FlagLimitReached() && !_isRevealed && Spawner.Instance.IsPlaying)
+        if (Input.GetMouseButtonDown(1) && !_isRevealed && Spawner.Instance.IsPlaying)
         {
             if (_flag.activeSelf)
             {
@@ -53,7 +53,7 @@ public class Cell : MonoBehaviour
                 _flag.SetActive(false);
                 Parameters.Instance.SubFlag();
             }
-            else
+            else if (!Parameters.Instance.FlagLimitReached())
             {
                 _square.color = _colorFlag;
                 FlagSound.Play();
