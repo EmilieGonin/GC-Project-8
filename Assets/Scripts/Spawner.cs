@@ -51,6 +51,7 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         IsPlaying = true;
+        SetDifficulty();
         Parameters.Instance.SetBombs(_bombsNumber);
         _cells = new GameObject[_max - _min, _max - _min];
         _revealedCells = new List<GameObject>();
@@ -158,11 +159,11 @@ public class Spawner : MonoBehaviour
         return _revealedCells.Count + _flagedCells.Count == _cells.Length;
     }
 
-    private void SetDifficulty(int difficulty)
+    private void SetDifficulty()
     {
-        //Move FlagsNumber & BombsNumber depending on difficulty
-        switch (difficulty)
+        switch (Difficulty.Instance.GameDifficulty)
         {
+            case 0:
             case 1:
                 _max = 5;
                 _min = -4;
