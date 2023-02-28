@@ -10,6 +10,5 @@ public class Bomb : MonoBehaviour
     {
         //Make an explosion sound when a bomb is revealed
         BombSound.Play();
-        // ======= Game Over Code =======
     }
 }
