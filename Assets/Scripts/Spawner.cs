@@ -198,12 +198,12 @@ public class Spawner : MonoBehaviour
 
         if (!_unsafeMode && !_luckyMode && IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
-            Debug.Log("position not safe");
+            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
         else if (!_unsafeMode && (bomb.transform.position == clickedCell.transform.position)) {
-            Debug.Log("position not safe");
+            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
@@ -212,7 +212,7 @@ public class Spawner : MonoBehaviour
         {
             if (bomb.transform.position == bombItem.transform.position)
             {
-                Debug.Log("position already taken");
+                //Debug.Log("position already taken");
                 Destroy(bomb);
                 return false;
             }
