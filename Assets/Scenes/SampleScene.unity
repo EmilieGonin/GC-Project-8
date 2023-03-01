@@ -392,6 +392,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3844815760372984320, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: BombSound
+      value: 
     - target: {fileID: 4113533312352893367, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_RenderMode
       value: 2
@@ -448,7 +451,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parameters
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8174924869991093767, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
 --- !u!1 &519420028
 GameObject:
