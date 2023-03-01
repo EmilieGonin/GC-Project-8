@@ -76,7 +76,11 @@ public class Cell : MonoBehaviour
             ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
-            _borders.SetActive(false);
+
+            if (_bomb || Spawner.Instance.IsPlaying)
+            {
+                _borders.SetActive(false);
+            }
 
             if (_bomb)
             {
