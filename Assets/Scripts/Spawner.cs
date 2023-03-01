@@ -144,6 +144,8 @@ public class Spawner : MonoBehaviour
     {
         IsPlaying = false;
         Timer.Instance.Pause();
+        Parameters.Instance.ShowMessage(false);
+
         foreach (var cell in _cells)
         {
             cell.GetComponent<Cell>().Reveal();
@@ -267,6 +269,7 @@ public class Spawner : MonoBehaviour
             if (hasWin)
             {
                 Debug.Log("win");
+                Parameters.Instance.ShowMessage(true);
                 GameObject Score = transform.Find("ScorePopup").gameObject;
                 Score.SetActive(true);
                 IsPlaying = false;
