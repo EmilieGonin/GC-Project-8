@@ -9,6 +9,9 @@ public class Bomb : MonoBehaviour
     void Start()
     {
         //Make an explosion sound when a bomb is revealed
-        BombSound.Play();
+        if (BombSound != null)
+        {
+            BombSound.Play();
+        }
     }
 }
