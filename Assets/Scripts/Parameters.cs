@@ -7,9 +7,18 @@ public class Parameters : MonoBehaviour
 {
     public static Parameters Instance { get; private set; }
 
+    [Header("Messages")]
+    [SerializeField] string _textWin;
+    [SerializeField] string _textLose;
+
     [Header("Ref")]
     [SerializeField] TextMeshPro _flags;
     [SerializeField] TextMeshPro _bombs;
+    [SerializeField] TextMeshPro _message;
+
+    [Header("Colors")]
+    [SerializeField] Color _colorWin;
+    [SerializeField] Color _colorLose;
 
     private int _flagsNumber;
     private int _bombsNumber;
@@ -40,5 +49,21 @@ public class Parameters : MonoBehaviour
     public bool FlagLimitReached()
     {
         return _flagsNumber == _bombsNumber;
+    }
+
+    public void ShowMessage(bool win)
+    {
+        _message.gameObject.SetActive(true);
+
+        if (win)
+        {
+            _message.color = _colorWin;
+            _message.text = _textWin;
+        }
+        else
+        {
+            _message.color = _colorLose;
+            _message.text = _textLose;
+        }
     }
 }
