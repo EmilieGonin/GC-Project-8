@@ -154,7 +154,9 @@ public class Spawner : MonoBehaviour
 
     private void SetDifficulty()
     {
-        switch (Difficulty.Instance.GameDifficulty)
+        int difficulty = Difficulty.Instance != null ? Difficulty.Instance.GameDifficulty : 1;
+
+        switch (difficulty)
         {
             case 0:
             case 1:
