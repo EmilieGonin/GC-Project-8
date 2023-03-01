@@ -270,18 +270,10 @@ public class Spawner : MonoBehaviour
             if (hasWin)
             {
                 Debug.Log("win");
-                GameObject Score = transform.Find("ScorePopup").gameObject;
-                Score.SetActive(true);
-                IsPlaying = false;
-            }
-        }
-
-        if (hasWin)
-            {
-                Debug.Log("win");
                 Canvas.transform.Find("ScorePopup").gameObject.SetActive(true);
                 IsPlaying = false;
             }
+        }
     }
 
     private void UnsafeMode(bool parameter)
