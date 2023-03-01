@@ -6,6 +6,7 @@ public class Cell : MonoBehaviour
 {
     [Header("Ref")]
     [SerializeField] SpriteRenderer _square;
+    [SerializeField] GameObject _borders;
     [SerializeField] TextMeshPro _text;
     [SerializeField] GameObject _flag;
 
@@ -75,6 +76,7 @@ public class Cell : MonoBehaviour
             ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
+            _borders.SetActive(false);
 
             if (_bomb)
             {
