@@ -770,7 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a6e24df6a91aa48a8b222828a09d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameDifficulty>k__BackingField: 0
+  <GameDifficulty>k__BackingField: 1
 --- !u!4 &1569372614
 Transform:
   m_ObjectHideFlags: 0
