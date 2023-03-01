@@ -392,9 +392,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3060055079845281684, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3844815760372984320, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: BombSound
       value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4113533312352893367, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_RenderMode
       value: 2
