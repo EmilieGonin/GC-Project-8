@@ -50,6 +50,8 @@ MonoBehaviour:
   _max: 5
   _min: -4
   _bombsNumber: 15
+  _unsafeMode: 0
+  _luckyMode: 0
   _colorOne: {r: 0.07058824, g: 0.23137255, b: 1, a: 1}
   _colorTwo: {r: 0.003921569, g: 0.6039216, b: 0.11764706, a: 1}
   _colorThree: {r: 1, g: 0, b: 0, a: 1}
@@ -58,3 +60,4 @@ MonoBehaviour:
   _colorSix: {r: 0.90961254, g: 1, b: 0.33490568, a: 1}
   _colorSeven: {r: 1, g: 0.0141509175, b: 0.82269496, a: 1}
   _colorEight: {r: 0.618481, g: 0.26379493, b: 0.9811321, a: 1}
+  Canvas: {fileID: 215317351516772909, guid: 8b6cbc9ddc873204e8e8ad53d181b2d9, type: 3}

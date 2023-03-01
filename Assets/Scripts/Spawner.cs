@@ -35,6 +35,9 @@ public class Spawner : MonoBehaviour
     [SerializeField] Color _colorSeven = Color.magenta;
     [SerializeField] Color _colorEight = Color.yellow;
 
+    [Header("UI")]
+    [SerializeField] GameObject Canvas;
+
     public bool IsPlaying { get; private set; }
 
     private List<GameObject> _bombs = new List<GameObject>();
@@ -267,9 +270,18 @@ public class Spawner : MonoBehaviour
             if (hasWin)
             {
                 Debug.Log("win");
+                GameObject Score = transform.Find("ScorePopup").gameObject;
+                Score.SetActive(true);
                 IsPlaying = false;
             }
         }
+
+        if (hasWin)
+            {
+                Debug.Log("win");
+                Canvas.transform.Find("ScorePopup").gameObject.SetActive(true);
+                IsPlaying = false;
+            }
     }
 
     private void UnsafeMode(bool parameter)
