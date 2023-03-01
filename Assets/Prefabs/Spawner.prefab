@@ -60,4 +60,4 @@ MonoBehaviour:
   _colorSix: {r: 0.90961254, g: 1, b: 0.33490568, a: 1}
   _colorSeven: {r: 1, g: 0.0141509175, b: 0.82269496, a: 1}
   _colorEight: {r: 0.618481, g: 0.26379493, b: 0.9811321, a: 1}
-  Canvas: {fileID: 3370051746587794825, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+  Canvas: {fileID: 215317351516772909, guid: 8b6cbc9ddc873204e8e8ad53d181b2d9, type: 3}

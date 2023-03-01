@@ -276,14 +276,6 @@ public class Spawner : MonoBehaviour
                 Timer.Instance.Pause();
             }
         }
-        if (hasWin)
-            {
-                Debug.Log("win");
-                GameObject Score = Canvas.transform.Find("ScorePopup").gameObject;
-                Score.SetActive(true);
-                IsPlaying = false;
-                Timer.Instance.Pause();
-            }
     }
 
     private void UnsafeMode(bool parameter)
