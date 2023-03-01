@@ -11,7 +11,7 @@ public class Difficulty : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void SetDifficulty(int difficulty)
+    public void SetDifficulty(int difficulty)
     {
         GameDifficulty = difficulty;
     }
