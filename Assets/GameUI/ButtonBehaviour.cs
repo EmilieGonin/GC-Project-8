@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,5 +18,10 @@ public class ButtonBehaviour : MonoBehaviour
     {
         //Debug.Log("Start button clicked");
         SceneManager.LoadScene("MenuScene");
+    }
+
+    public void OnNewGameClick()
+    {
+        SceneManager.LoadScene("NewGameScene");
     }
 }

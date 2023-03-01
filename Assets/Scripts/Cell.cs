@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
-using UnityEditor.UI;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -10,6 +6,7 @@ public class Cell : MonoBehaviour
 {
     [Header("Ref")]
     [SerializeField] SpriteRenderer _square;
+    [SerializeField] GameObject _borders;
     [SerializeField] TextMeshPro _text;
     [SerializeField] GameObject _flag;
 
@@ -24,6 +21,7 @@ public class Cell : MonoBehaviour
     public AudioSource ClickSound;
     public AudioSource FlagSound;
     public AudioSource FlagDestroySound;
+    //Change names with _
 
     private bool _bomb = false;
     private bool _isRevealed = false;
@@ -78,6 +76,7 @@ public class Cell : MonoBehaviour
             ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
+            _borders.SetActive(false);
 
             if (_bomb)
             {

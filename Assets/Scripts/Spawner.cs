@@ -1,13 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Windows;
-using static UnityEngine.UI.Image;
 
 public class Spawner : MonoBehaviour
 {
@@ -39,7 +32,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject Canvas;
 
     public bool IsPlaying { get; private set; }
-
     private List<GameObject> _bombs = new List<GameObject>();
     private GameObject[,] _cells;
     private List<GameObject> _revealedCells;
@@ -55,6 +47,7 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         IsPlaying = true;
+        SetDifficulty();
         Parameters.Instance.SetBombs(_bombsNumber);
         _cells = new GameObject[_max - _min, _max - _min];
         _revealedCells = new List<GameObject>();
@@ -74,6 +67,7 @@ public class Spawner : MonoBehaviour
 
     public void Init(GameObject clickedCell)
     {
+        Timer.Instance.Run();
         _started = true;
 
         //Bombs
@@ -149,6 +143,7 @@ public class Spawner : MonoBehaviour
     public void RevealAll()
     {
         IsPlaying = false;
+        Timer.Instance.Pause();
         foreach (var cell in _cells)
         {
             cell.GetComponent<Cell>().Reveal();
@@ -160,11 +155,13 @@ public class Spawner : MonoBehaviour
         return _revealedCells.Count + _flagedCells.Count == _cells.Length;
     }
 
-    private void SetDifficulty(int difficulty)
+    private void SetDifficulty()
     {
-        //Move FlagsNumber & BombsNumber depending on difficulty
+        int difficulty = Difficulty.Instance != null ? Difficulty.Instance.GameDifficulty : 1;
+
         switch (difficulty)
         {
+            case 0:
             case 1:
                 _max = 5;
                 _min = -4;
@@ -200,12 +197,12 @@ public class Spawner : MonoBehaviour
 
         if (!_unsafeMode && !_luckyMode && IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
-            Debug.Log("position not safe");
+            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
         else if (!_unsafeMode && (bomb.transform.position == clickedCell.transform.position)) {
-            Debug.Log("position not safe");
+            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
@@ -214,7 +211,7 @@ public class Spawner : MonoBehaviour
         {
             if (bomb.transform.position == bombItem.transform.position)
             {
-                Debug.Log("position already taken");
+                //Debug.Log("position already taken");
                 Destroy(bomb);
                 return false;
             }
@@ -270,8 +267,10 @@ public class Spawner : MonoBehaviour
             if (hasWin)
             {
                 Debug.Log("win");
-                Canvas.transform.Find("ScorePopup").gameObject.SetActive(true);
+                GameObject Score = transform.Find("ScorePopup").gameObject;
+                Score.SetActive(true);
                 IsPlaying = false;
+                Timer.Instance.Pause();
             }
         }
     }
