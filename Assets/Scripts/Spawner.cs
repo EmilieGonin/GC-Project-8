@@ -273,13 +273,6 @@ public class Spawner : MonoBehaviour
                 Timer.Instance.Pause();
             }
         }
-
-        if (hasWin)
-            {
-                Debug.Log("win");
-                Canvas.transform.Find("ScorePopup").gameObject.SetActive(true);
-                IsPlaying = false;
-            }
     }
 
     private void UnsafeMode(bool parameter)
