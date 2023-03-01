@@ -352,6 +352,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 252125462546213148, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
     - target: {fileID: 1412523405677985845, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -392,9 +396,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3060055079845281684, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3844815760372984320, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: BombSound
       value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4113533312352893367, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_RenderMode
       value: 2
@@ -403,6 +412,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5150070356257164117, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5562934962286874689, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -446,6 +459,14 @@ PrefabInstance:
     - target: {fileID: 6271679755833427539, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621100737505506853, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621100737505506853, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8633308558601650186, guid: 983694e3e5e28624fa50d89d18b4ee28, type: 3}
       propertyPath: m_Name
@@ -712,6 +733,30 @@ PrefabInstance:
     - target: {fileID: 3370051747395504162, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
       propertyPath: m_fontSizeBase
       value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11500000, guid: 48a6e24df6a91aa48a8b222828a09d91, type: 3}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6074607753279893493, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b1ce917668cf4643b1bb595e9b0d32f, type: 3}

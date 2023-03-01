@@ -144,6 +144,8 @@ public class Spawner : MonoBehaviour
     {
         IsPlaying = false;
         Timer.Instance.Pause();
+        Parameters.Instance.ShowMessage(false);
+
         foreach (var cell in _cells)
         {
             cell.GetComponent<Cell>().Reveal();
@@ -172,13 +174,13 @@ public class Spawner : MonoBehaviour
                 _max = 10;
                 _min = -9;
                 _bombsNumber = 50;
-                _camera.orthographicSize = 10;
+                _camera.orthographicSize = 10.5f;
                 break;
             case 3:
                 _max = 15;
                 _min = -14;
                 _bombsNumber = 150;
-                _camera.orthographicSize = 15;
+                _camera.orthographicSize = 16;
                 break;
         }
     }
@@ -267,6 +269,7 @@ public class Spawner : MonoBehaviour
             if (hasWin)
             {
                 Debug.Log("win");
+                Parameters.Instance.ShowMessage(true);
                 GameObject Score = transform.Find("ScorePopup").gameObject;
                 Score.SetActive(true);
                 IsPlaying = false;
