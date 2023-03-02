@@ -52,7 +52,7 @@ public class Cell : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && !_isRevealed && Spawner.Instance.IsPlaying)
+        if (Input.GetMouseButtonDown(1) && !_isRevealed && Spawner.Instance.HasStarted() && Spawner.Instance.IsPlaying)
         {
             if (_flag.activeSelf)
             {
