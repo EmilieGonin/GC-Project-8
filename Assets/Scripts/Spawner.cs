@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -143,18 +144,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void RevealAll()
-    {
-        IsPlaying = false;
-        Timer.Instance.Pause();
-        Parameters.Instance.ShowMessage(false);
-
-        foreach (var cell in _cells)
-        {
-            cell.GetComponent<Cell>().Reveal();
-        }
-    }
-
     public bool IsAllRevealedAndFlaged()
     {
         return _revealedCells.Count + _flagedCells.Count == _cells.Length;
@@ -267,13 +256,30 @@ public class Spawner : MonoBehaviour
 
             if (hasWin)
             {
-                Debug.Log("win");
-                Parameters.Instance.ShowMessage(true);
-                IsPlaying = false;
-                Timer.Instance.Pause();
-                GameObject Score = transform.Find("ScorePopup").gameObject;
-                Score.SetActive(true);
+                Win();
             }
+        }
+    }
+
+    private void Win()
+    {
+        Debug.Log("win");
+        Parameters.Instance.ShowMessage(true);
+        IsPlaying = false;
+        Timer.Instance.Pause();
+        //GameObject Score = transform.Find("ScorePopup").gameObject;
+        //Score.SetActive(true);
+    }
+
+    public void GameOver()
+    {
+        IsPlaying = false;
+        Timer.Instance.Pause();
+        Parameters.Instance.ShowMessage(false);
+
+        foreach (var cell in _cells)
+        {
+            cell.GetComponent<Cell>().Reveal();
         }
     }
 

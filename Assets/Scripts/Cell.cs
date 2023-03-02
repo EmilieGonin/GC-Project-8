@@ -93,13 +93,12 @@ public class Cell : MonoBehaviour
                     _square.color = _colorBomb;
                     _bomb.PlaySound();
                     Debug.Log("game over");
+                    Spawner.Instance.GameOver();
                 }
                 else
                 {
                     _square.color = _colorRevealed;
                 }
-
-                Spawner.Instance.RevealAll();
 
             }
             else if (Spawner.Instance.IsPlaying)
