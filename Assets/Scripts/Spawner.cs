@@ -152,7 +152,7 @@ public class Spawner : MonoBehaviour
 
     private void SetDifficulty()
     {
-        int difficulty = Difficulty.Instance? Difficulty.Instance.GameDifficulty : 1;
+        int difficulty = GameData.Instance? GameData.Instance.GameDifficulty : 1;
 
         switch (difficulty)
         {
@@ -180,7 +180,7 @@ public class Spawner : MonoBehaviour
 
     private void SetGameMode()
     {
-        int mode = GameMode.Instance != null ? GameMode.Instance.Gamemode : 0;
+        int mode = GameData.Instance? GameData.Instance.GameMode : 0;
 
         switch (mode)
         {
@@ -303,15 +303,5 @@ public class Spawner : MonoBehaviour
         {
             cell.GetComponent<Cell>().Reveal();
         }
-    }
-
-    private void UnsafeMode(bool parameter)
-    {
-        _unsafeMode = parameter;
-    }
-
-    private void LuckyMode(bool parameter)
-    {
-        _luckyMode = parameter;
     }
 }

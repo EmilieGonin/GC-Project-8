@@ -7,12 +7,12 @@ public class DifficultyDropdown : MonoBehaviour
 
     private void Start()
     {
-        _dropdown.value = Difficulty.Instance.GameDifficulty - 1;
+        _dropdown.value = GameData.Instance.GameDifficulty - 1;
         _dropdown.onValueChanged.AddListener(delegate { OnDropdownValueChanged(); });
     }
     private void OnDropdownValueChanged()
     {
-        Difficulty.Instance.SetDifficulty(_dropdown.value + 1);
+        GameData.Instance.SetDifficulty(_dropdown.value + 1);
         SceneManager.LoadScene("SampleScene");
     }
 }

@@ -30,25 +30,25 @@ public class ToggleBehaviour : MonoBehaviour
 
     private void SetDifficulty()
     {
-        Difficulty.Instance.SetDifficulty(ToggledValue);
+        GameData.Instance.SetDifficulty(ToggledValue);
     }
 
     //Mode Toggles
     public void SetNormal()
     {
         ToggledMode = 0;
-        GameMode.Instance.SetGameMode(0);
+        GameData.Instance.SetGameMode(0);
     }
 
     public void SetLucky()
     {
         ToggledMode = 1;
-        GameMode.Instance.SetGameMode(1);
+        GameData.Instance.SetGameMode(1);
     }
 
     public void SetUnsafe()
     {
         ToggledMode = 2;
-        GameMode.Instance.SetGameMode(2);
+        GameData.Instance.SetGameMode(2);
     }
 }
