@@ -98,7 +98,6 @@ public class Cell : MonoBehaviour
                 {
                     _square.color = _colorBomb;
                     _bomb.PlaySound();
-                    Debug.Log("game over");
                     Spawner.Instance.GameOver();
                 }
                 else
@@ -143,5 +142,10 @@ public class Cell : MonoBehaviour
     public void SetBomb(Bomb bomb)
     {
         _bomb = bomb;
+    }
+
+    public bool HasBomb()
+    {
+        return _bomb != null;
     }
 }

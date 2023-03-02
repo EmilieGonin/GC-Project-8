@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Spawner : MonoBehaviour
 {
@@ -29,9 +28,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] Color _colorSeven = Color.magenta;
     [SerializeField] Color _colorEight = Color.yellow;
 
-    [Header("UI")]
-    [SerializeField] GameObject Canvas;
-
     public bool IsPlaying { get; private set; }
     private List<Bomb> _bombs;
     private GameObject[,] _cells;
@@ -39,6 +35,7 @@ public class Spawner : MonoBehaviour
     private List<GameObject> _flagedCells;
     private System.Random _random;
     private bool _started;
+    private Color[] _colors;
 
     private void Awake()
     {
@@ -48,6 +45,7 @@ public class Spawner : MonoBehaviour
         _flagedCells = new();
         _random = new();
         _started = false;
+        _colors = new Color[] { _colorOne, _colorTwo, _colorThree, _colorFour, _colorFive, _colorSix, _colorSeven, _colorEight };
     }
 
     private void Start()
@@ -100,34 +98,7 @@ public class Spawner : MonoBehaviour
                     {
                         int count = text.text == "" ? 1 : int.Parse(text.text) + 1;
                         text.text = count.ToString();
-
-                        switch (count)
-                        {
-                            case 1:
-                                text.color = _colorOne;
-                                break;
-                            case 2:
-                                text.color = _colorTwo;
-                                break;
-                            case 3:
-                                text.color = _colorThree;
-                                break;
-                            case 4:
-                                text.color = _colorFour;
-                                break;
-                            case 5:
-                                text.color = _colorFive;
-                                break;
-                            case 6:
-                                text.color = _colorSix;
-                                break;
-                            case 7:
-                                text.color = _colorSeven;
-                                break;
-                            case 8:
-                                text.color = _colorEight;
-                                break;
-                        }
+                        text.color = _colors[count - 1];
                     }
                 }
             }
@@ -268,9 +239,7 @@ public class Spawner : MonoBehaviour
         {
             foreach (var cell in _flagedCells)
             {
-                Bomb bomb = cell.transform.GetComponentInChildren<Bomb>(true);
-
-                if (bomb == null)
+                if (!cell.GetComponent<Cell>().HasBomb())
                 {
                     hasWin = false;
                 }
@@ -286,22 +255,24 @@ public class Spawner : MonoBehaviour
     private void Win()
     {
         Debug.Log("win");
-        Parameters.Instance.ShowMessage(true);
-        IsPlaying = false;
-        Timer.Instance.Pause();
-        //GameObject Score = transform.Find("ScorePopup").gameObject;
-        //Score.SetActive(true);
+        End(true);
     }
 
     public void GameOver()
     {
-        IsPlaying = false;
-        Timer.Instance.Pause();
-        Parameters.Instance.ShowMessage(false);
+        Debug.Log("game over");
+        End(false);
 
         foreach (var cell in _cells)
         {
             cell.GetComponent<Cell>().Reveal();
         }
+    }
+
+    private void End(bool win)
+    {
+        IsPlaying = false;
+        Timer.Instance.Pause();
+        Parameters.Instance.ShowMessage(win);
     }
 }
