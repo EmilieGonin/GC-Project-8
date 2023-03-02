@@ -40,8 +40,7 @@ public class Timer : MonoBehaviour
                 _minutes++;
             }
 
-            string timer = $"{(_minutes < 10 ? 0 : "")}{_minutes}:{(seconds < 10 ? 0 : "")}{seconds}";
-            _text.text = timer;
+            _text.text = $"{(_minutes < 10 ? 0 : "")}{_minutes}:{(seconds < 10 ? 0 : "")}{seconds}";
         }
     }
 

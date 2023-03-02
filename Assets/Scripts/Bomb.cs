@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public AudioSource BombSound;
+    [SerializeField] AudioSource _bombSound;
 
-    void Start()
+    public void PlaySound()
     {
-        //Make an explosion sound when a bomb is revealed
-        if (BombSound != null)
-        {
-            BombSound.Play();
-        }
+        _bombSound?.Play();
     }
 }

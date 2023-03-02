@@ -54,16 +54,7 @@ public class Parameters : MonoBehaviour
     public void ShowMessage(bool win)
     {
         _message.gameObject.SetActive(true);
-
-        if (win)
-        {
-            _message.color = _colorWin;
-            _message.text = _textWin;
-        }
-        else
-        {
-            _message.color = _colorLose;
-            _message.text = _textLose;
-        }
+        _message.color = win ? _colorWin : _colorLose;
+        _message.text = win ? _textWin : _textLose;
     }
 }

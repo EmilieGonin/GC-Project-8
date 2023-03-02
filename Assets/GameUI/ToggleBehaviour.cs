@@ -1,34 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ToggleBehaviour : MonoBehaviour
 {
-    public int ToggledValue { get; set; } = 1;
-    public int ToggledMode {get; set; } = 0;
-    //[SerializeField] Spawner spawner;
+    public int ToggledValue { get; set; }
+    public int ToggledMode {get; set; }
+
+    private void Awake()
+    {
+        ToggledValue = 1;
+        ToggledMode = 1;
+    }
 
     //Difficulty Toggles
     public void SetEasy()
     {
-        //spawner.SetDifficulty(1);
-        //Spawner.Instance.SetDifficulty(1);
         ToggledValue = 1;
-        Difficulty.Instance.SetDifficulty(1);
+        SetDifficulty();
     }
     public void SetMedium()
     {
-        //spawner.SetDifficulty(2);
-        //Spawner.Instance.SetDifficulty(2);
         ToggledValue = 2;
-        Difficulty.Instance.SetDifficulty(2);
+        SetDifficulty();
     }
     public void SetHard()
     {
-        //spawner.SetDifficulty(3);
-        //Spawner.Instance.SetDifficulty(3);
         ToggledValue = 3;
-        Difficulty.Instance.SetDifficulty(3);
+        SetDifficulty();
+    }
+
+    private void SetDifficulty()
+    {
+        Difficulty.Instance.SetDifficulty(ToggledValue);
     }
 
     //Mode Toggles

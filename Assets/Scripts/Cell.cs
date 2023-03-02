@@ -18,13 +18,17 @@ public class Cell : MonoBehaviour
     [SerializeField] Color _colorError;
 
     [Header("Sound Effects")]
-    public AudioSource ClickSound;
-    public AudioSource FlagSound;
-    public AudioSource FlagDestroySound;
-    //Change names with _
+    [SerializeField] AudioSource _clickSound;
+    [SerializeField] AudioSource _flagSound;
+    [SerializeField] AudioSource _flagDestroySound;
 
-    private bool _bomb = false;
-    private bool _isRevealed = false;
+    private Bomb _bomb;
+    private bool _isRevealed;
+
+    private void Awake()
+    {
+        _isRevealed = false;
+    }
 
     private void OnMouseDown()
     {
@@ -46,20 +50,19 @@ public class Cell : MonoBehaviour
         {
             if (_flag.activeSelf)
             {
+                _flag.SetActive(!_flag.activeSelf);
                 _square.color = _colorHidden;
-                FlagDestroySound.Play();
-                _flag.SetActive(false);
+                _flagDestroySound.Play();
                 Parameters.Instance.SubFlag();
             }
             else if (!Parameters.Instance.FlagLimitReached())
             {
+                _flag.SetActive(!_flag.activeSelf);
                 _square.color = _colorFlag;
-                FlagSound.Play();
-                _flag.SetActive(true);
+                _flagSound.Play();
                 Parameters.Instance.AddFlag();
-                Bomb bomb = transform.GetComponentInChildren<Bomb>(true);
 
-                if (bomb != null)
+                if (_bomb != null)
                 {
                     Spawner.Instance.AddFlagedCell(gameObject);
                 }
@@ -73,7 +76,6 @@ public class Cell : MonoBehaviour
     {
         if (!_isRevealed && !_flag.activeSelf)
         {
-            ClickSound.Play();
             _isRevealed = true;
             Spawner.Instance.AddRevealedCell(gameObject);
 
@@ -84,22 +86,24 @@ public class Cell : MonoBehaviour
 
             if (_bomb)
             {
+                _bomb.gameObject.SetActive(true);
+
                 if (Spawner.Instance.IsPlaying)
                 {
                     _square.color = _colorBomb;
+                    _bomb.PlaySound();
                     Debug.Log("game over");
+                    Spawner.Instance.GameOver();
                 }
                 else
                 {
                     _square.color = _colorRevealed;
                 }
 
-                transform.GetComponentInChildren<Bomb>(true).gameObject.SetActive(true);
-                Spawner.Instance.RevealAll();
-
             }
             else if (Spawner.Instance.IsPlaying)
             {
+                _clickSound.Play();
                 _square.color = _colorRevealed;
                 _text.gameObject.SetActive(true);
             }
@@ -126,8 +130,8 @@ public class Cell : MonoBehaviour
         return _isRevealed;
     }
 
-    public void HasBomb()
+    public void SetBomb(Bomb bomb)
     {
-        _bomb = true;
+        _bomb = bomb;
     }
 }
