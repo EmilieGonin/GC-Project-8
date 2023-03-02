@@ -54,6 +54,7 @@ public class Spawner : MonoBehaviour
     {
         IsPlaying = true;
         SetDifficulty();
+        SetGameMode();
         Parameters.Instance.SetBombs(_bombsNumber);
         _cells = new GameObject[_max - _min, _max - _min];
 
@@ -173,6 +174,27 @@ public class Spawner : MonoBehaviour
                 _min = -14;
                 _bombsNumber = 150;
                 _camera.orthographicSize = 16;
+                break;
+        }
+    }
+
+    private void SetGameMode()
+    {
+        int mode = GameMode.Instance != null ? GameMode.Instance.Gamemode : 0;
+
+        switch (mode)
+        {
+            case 0:
+                _luckyMode = false;
+                _unsafeMode = false;
+                break;
+            case 1:
+                _luckyMode = true;
+                _unsafeMode = false;
+                break;
+            case 2:
+                _luckyMode = false;
+                _unsafeMode = true;
                 break;
         }
     }
