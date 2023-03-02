@@ -12,11 +12,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] Camera _camera;
 
     [Header("Settings")]
-    [SerializeField] int _max = 5;
-    [SerializeField] int _min = -4;
-    [SerializeField] int _bombsNumber = 15;
-    [SerializeField] bool _unsafeMode = false;
-    [SerializeField] bool _luckyMode = false;
+    [SerializeField] int _max;
+    [SerializeField] int _min;
+    [SerializeField] int _bombsNumber;
+    [SerializeField] bool _unsafeMode;
+    [SerializeField] bool _luckyMode;
 
     [Header("Colors")]
     [SerializeField] Color _colorOne = new Color32(18, 59, 255, 255);
@@ -32,16 +32,21 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject Canvas;
 
     public bool IsPlaying { get; private set; }
-    private List<GameObject> _bombs = new List<GameObject>();
+    private List<Bomb> _bombs;
     private GameObject[,] _cells;
     private List<GameObject> _revealedCells;
     private List<GameObject> _flagedCells;
-    private System.Random _random = new System.Random();
-    private bool _started = false;
+    private System.Random _random;
+    private bool _started;
 
     private void Awake()
     {
         Instance = this;
+        _bombs = new();
+        _revealedCells = new();
+        _flagedCells = new();
+        _random = new();
+        _started = false;
     }
 
     private void Start()
@@ -50,8 +55,6 @@ public class Spawner : MonoBehaviour
         SetDifficulty();
         Parameters.Instance.SetBombs(_bombsNumber);
         _cells = new GameObject[_max - _min, _max - _min];
-        _revealedCells = new List<GameObject>();
-        _flagedCells = new List<GameObject>();
 
         for (int i = _min; i < _max; i++)
         {
@@ -89,7 +92,7 @@ public class Spawner : MonoBehaviour
                     if (bombItem.transform.position == cell.transform.position)
                     {
                         bombItem.transform.parent = cell.transform;
-                        cell.GetComponent<Cell>().HasBomb();
+                        cell.GetComponent<Cell>().SetBomb(bombItem);
                     }
                     else if (IsAdjacent(bombItem.transform.position, cell.transform.position))
                     {
@@ -159,7 +162,7 @@ public class Spawner : MonoBehaviour
 
     private void SetDifficulty()
     {
-        int difficulty = Difficulty.Instance != null ? Difficulty.Instance.GameDifficulty : 1;
+        int difficulty = Difficulty.Instance? Difficulty.Instance.GameDifficulty : 1;
 
         switch (difficulty)
         {
@@ -199,12 +202,10 @@ public class Spawner : MonoBehaviour
 
         if (!_unsafeMode && !_luckyMode && IsAdjacent(bomb.transform.position, clickedCell.transform.position))
         {
-            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
         else if (!_unsafeMode && (bomb.transform.position == clickedCell.transform.position)) {
-            //Debug.Log("position not safe");
             Destroy(bomb);
             return false;
         }
@@ -213,14 +214,12 @@ public class Spawner : MonoBehaviour
         {
             if (bomb.transform.position == bombItem.transform.position)
             {
-                //Debug.Log("position already taken");
                 Destroy(bomb);
                 return false;
             }
         }
 
-
-        _bombs.Add(bomb);
+        _bombs.Add(bomb.GetComponent<Bomb>());
         bomb.SetActive(false);
         return true;
     }
@@ -270,10 +269,10 @@ public class Spawner : MonoBehaviour
             {
                 Debug.Log("win");
                 Parameters.Instance.ShowMessage(true);
-                GameObject Score = transform.Find("ScorePopup").gameObject;
-                Score.SetActive(true);
                 IsPlaying = false;
                 Timer.Instance.Pause();
+                GameObject Score = transform.Find("ScorePopup").gameObject;
+                Score.SetActive(true);
             }
         }
     }

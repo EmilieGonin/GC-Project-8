@@ -5499,9 +5499,9 @@ MonoBehaviour:
   _colorFlag: {r: 1, g: 0.84313726, b: 0, a: 1}
   _colorBomb: {r: 1, g: 0, b: 0, a: 1}
   _colorError: {r: 1, g: 0.495283, b: 0.495283, a: 1}
-  ClickSound: {fileID: 4252679156982182126}
-  FlagSound: {fileID: -1875957565728192190}
-  FlagDestroySound: {fileID: -1090455466062340852}
+  _clickSound: {fileID: 4252679156982182126}
+  _flagSound: {fileID: -1875957565728192190}
+  _flagDestroySound: {fileID: -1090455466062340852}
 --- !u!61 &6346275594709302672
 BoxCollider2D:
   m_ObjectHideFlags: 0

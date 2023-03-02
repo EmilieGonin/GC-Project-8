@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45935491c7b9dd14d974da18384ebb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BombSound: {fileID: 4663844938892431363}
+  _bombSound: {fileID: 4663844938892431363}
 --- !u!82 &4663844938892431363
 AudioSource:
   m_ObjectHideFlags: 0
