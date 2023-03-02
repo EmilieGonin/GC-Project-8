@@ -40,6 +40,11 @@ public class Cell : MonoBehaviour
         if (Spawner.Instance.IsPlaying)
         {
             Reveal();
+            
+            if (!_bomb)
+            {
+                _clickSound.Play();
+            }
         }
 
     }
@@ -103,7 +108,6 @@ public class Cell : MonoBehaviour
             }
             else if (Spawner.Instance.IsPlaying)
             {
-                _clickSound.Play();
                 _square.color = _colorRevealed;
                 _text.gameObject.SetActive(true);
             }
