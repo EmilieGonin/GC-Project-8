@@ -2,53 +2,58 @@ using UnityEngine;
 
 public class ToggleBehaviour : MonoBehaviour
 {
-    public int ToggledValue { get; set; }
-    public int ToggledMode {get; set; }
+    private int _toggledValue;
+    private int _toggledMode;
 
     private void Awake()
     {
-        ToggledValue = 1;
-        ToggledMode = 1;
+        _toggledValue = 1;
+        _toggledMode = 0;
     }
 
     //Difficulty Toggles
     public void SetEasy()
     {
-        ToggledValue = 1;
+        _toggledValue = 1;
         SetDifficulty();
     }
     public void SetMedium()
     {
-        ToggledValue = 2;
+        _toggledValue = 2;
         SetDifficulty();
     }
     public void SetHard()
     {
-        ToggledValue = 3;
+        _toggledValue = 3;
         SetDifficulty();
     }
 
     private void SetDifficulty()
     {
-        Difficulty.Instance.SetDifficulty(ToggledValue);
+        GameData.Instance.SetDifficulty(_toggledValue);
     }
 
     //Mode Toggles
     public void SetNormal()
     {
-        ToggledMode = 0;
-        GameMode.Instance.SetGameMode(0);
+        _toggledMode = 0;
+        SetGameMode();
     }
 
     public void SetLucky()
     {
-        ToggledMode = 1;
-        GameMode.Instance.SetGameMode(1);
+        _toggledMode = 1;
+        SetGameMode();
     }
 
     public void SetUnsafe()
     {
-        ToggledMode = 2;
-        GameMode.Instance.SetGameMode(2);
+        _toggledMode = 2;
+        SetGameMode();
+    }
+
+    private void SetGameMode()
+    {
+        GameData.Instance.SetGameMode(_toggledMode);
     }
 }

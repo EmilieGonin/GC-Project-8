@@ -9,6 +9,7 @@ public class Cell : MonoBehaviour
     [SerializeField] GameObject _borders;
     [SerializeField] TextMeshPro _text;
     [SerializeField] GameObject _flag;
+    [SerializeField] ParticleSystem _particles;
 
     [Header("Colors")]
     [SerializeField] Color _colorHidden;
@@ -40,6 +41,11 @@ public class Cell : MonoBehaviour
         if (Spawner.Instance.IsPlaying)
         {
             Reveal();
+            
+            if (!_bomb)
+            {
+                _clickSound.Play();
+            }
         }
 
     }
@@ -92,7 +98,6 @@ public class Cell : MonoBehaviour
                 {
                     _square.color = _colorBomb;
                     _bomb.PlaySound();
-                    Debug.Log("game over");
                     Spawner.Instance.GameOver();
                 }
                 else
@@ -103,7 +108,6 @@ public class Cell : MonoBehaviour
             }
             else if (Spawner.Instance.IsPlaying)
             {
-                _clickSound.Play();
                 _square.color = _colorRevealed;
                 _text.gameObject.SetActive(true);
             }
@@ -111,9 +115,14 @@ public class Cell : MonoBehaviour
             CheckReveal();
             Spawner.Instance.CheckWin();
         }
-        else if (!_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        else if (!Spawner.Instance.IsPlaying && _flag.activeSelf)
         {
-            _square.color = _colorError;
+            _particles.Stop();
+
+            if (!_bomb)
+            {
+                _square.color = _colorError;
+            }
         }
     }
 
@@ -133,5 +142,10 @@ public class Cell : MonoBehaviour
     public void SetBomb(Bomb bomb)
     {
         _bomb = bomb;
+    }
+
+    public bool HasBomb()
+    {
+        return _bomb != null;
     }
 }

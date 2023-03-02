@@ -15,6 +15,7 @@ public class Parameters : MonoBehaviour
     [SerializeField] TextMeshPro _flags;
     [SerializeField] TextMeshPro _bombs;
     [SerializeField] TextMeshPro _message;
+    [SerializeField] GameObject _scoreboard;
 
     [Header("Colors")]
     [SerializeField] Color _colorWin;
@@ -53,6 +54,7 @@ public class Parameters : MonoBehaviour
 
     public void ShowMessage(bool win)
     {
+        _scoreboard.SetActive(true);
         _message.gameObject.SetActive(true);
         _message.color = win ? _colorWin : _colorLose;
         _message.text = win ? _textWin : _textLose;
