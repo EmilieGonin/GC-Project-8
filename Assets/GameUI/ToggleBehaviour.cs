@@ -11,6 +11,12 @@ public class ToggleBehaviour : MonoBehaviour
         _toggledMode = 0;
     }
 
+    private void Start()
+    {
+        SetDifficulty();
+        SetGameMode();
+    }
+
     //Difficulty Toggles
     public void SetEasy()
     {
