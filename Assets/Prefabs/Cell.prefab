@@ -5323,7 +5323,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 10
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5494,6 +5494,7 @@ MonoBehaviour:
   _borders: {fileID: 9005483225847833210}
   _text: {fileID: 4918792460974511614}
   _flag: {fileID: 7268866667486171}
+  _particles: {fileID: 6916860291954564134}
   _colorHidden: {r: 0.24313726, g: 0.53333336, b: 0.8666667, a: 1}
   _colorRevealed: {r: 1, g: 1, b: 1, a: 1}
   _colorFlag: {r: 1, g: 0.84313726, b: 0, a: 1}

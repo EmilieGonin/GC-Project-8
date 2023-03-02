@@ -9,6 +9,7 @@ public class Cell : MonoBehaviour
     [SerializeField] GameObject _borders;
     [SerializeField] TextMeshPro _text;
     [SerializeField] GameObject _flag;
+    [SerializeField] ParticleSystem _particles;
 
     [Header("Colors")]
     [SerializeField] Color _colorHidden;
@@ -115,9 +116,14 @@ public class Cell : MonoBehaviour
             CheckReveal();
             Spawner.Instance.CheckWin();
         }
-        else if (!_bomb && !_isRevealed && !Spawner.Instance.IsPlaying && _flag.activeSelf)
+        else if (!Spawner.Instance.IsPlaying && _flag.activeSelf)
         {
-            _square.color = _colorError;
+            _particles.Stop();
+
+            if (!_bomb)
+            {
+                _square.color = _colorError;
+            }
         }
     }
 
